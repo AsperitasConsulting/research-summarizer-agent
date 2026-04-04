@@ -1,0 +1,34 @@
+# The AI Agent Testing Pyramid
+
+- **Base — Deterministic Unit Tests:** 
+    - Stub the LLM to test orchestration logic, tool routing, and state management. Fast, cheap, runs on every commit. Limitation: doesn't validate actual model behavior.
+    - Orchestration logic: Does your agent correctly sequence tool calls?
+    - Tool routing: Does it invoke the right function for a given intent? The Base tier assumes that individual tools and utilities are independently unit-tested using standard software engineering practices. The sub-bullets above focus on testing the agent's orchestration of those tools.
+    - Resilience and fault tolerance: How does the agent recover from tool failures, timeouts, and malformed responses?
+    - State management: Does the conversation context persist correctly?
+    - Error handling and resilience: How does the system behave when tools fail, APIs timeout, or responses are malformed? Does it retry, fall back, or degrade gracefully?
+    - Input validation and output formatting
+- **Lower-Middle — Constrained Model Tests:** 
+    - Real model calls with temperature=0, fixed seeds, and structured outputs. Tests prompt effectiveness. More variability, but automatable.
+    - Prompt effectiveness: Does your system prompt reliably elicit the right behavior?
+    - Basic capability: Can the model handle your core use cases?
+    - Structured output compliance: Does it return valid JSON/follow your schema?
+    - Tool selection under controlled conditions
+    - temperature=0 to minimize randomness
+    - Fixed random seeds where supported
+    - Structured output modes (JSON schema, function calling)
+    - Carefully crafted test inputs that have clear "correct" answers
+- **Upper-Middle — LLM-as-Judge Evals:** 
+    - Real model graded by another model against rubrics. Catches semantic regressions. Requires calibration.
+    - Semantic correctness: Is the answer actually helpful, even if phrased differently?
+    - Tone and style: Does the agent maintain appropriate communication?
+    - Reasoning quality: Does the explanation make sense?
+    - Safety and alignment: Does it avoid harmful outputs?
+    - Hallucination detection: Does the agent fabricate information or cite nonexistent sources?
+    - Transaction replay: Compare previously recorded and validated action responses with the responses for the version under test. Have the LLM-as-Judge determine if behavior differences are material and whether they are an imprvement or degredation.
+- **Top — Human Evaluation:** 
+    - Preference testing, expert review, red-teaming. Highest signal for subjective quality and safety. Expensive and slow — use surgically.
+    - Subjective quality: Is this response genuinely helpful?
+    - Edge cases and adversarial inputs: Red team testing
+    - User preference: Do users prefer version A or B?
+    - Safety and compliance: Expert review for regulated domains
