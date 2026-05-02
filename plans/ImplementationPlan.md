@@ -1,12 +1,13 @@
 # Implementation Plan: Research Summarizer Agent
 
-**Version:** 3.0
+**Version:** 4.0
 **Based on:**
 - `requirements/Research_Summarizer_Agent_Spec.md` v1.0 draft
 - `requirements/Testing-Pyramid.md`
-- `notes/Creation_Thinking_v3.md` (this revision)
+- `notes/Creation_Thinking_v4.md` (this revision)
 - `notes/Creation_Questions_v1.md` (with project-owner answers inline)
 - `notes/Creation_Questions_v2.md` (with project-owner answers inline)
+- `notes/Creation_Questions_v3.md` (with project-owner answers inline)
 **Purpose:** Workshop teaching vehicle for the AI Agent Testing Pyramid (90-minute session)
 
 ---
@@ -18,7 +19,7 @@ Every decision optimizes for **workshop clarity**, not production quality. If so
 Two structural rules govern this revision:
 
 1. **Solutions are written and proven before stubs are produced.** No attendee-facing test stub ships in this build until its full solution has been authored, run, and shown to behave correctly against both the corrected agent (must pass) and the defective agent (the defect-catching test must fail; all others must still pass).
-2. **Each phase has explicit human-escalation triggers.** When the agent team hits one, it stops and asks. The triggers are concrete per phase; cross-cutting triggers are listed once at the bottom of this plan.
+2. **Each phase has explicit human-escalation triggers.** When the agent team hits one, it stops and asks. The triggers are concrete per phase; cross-cutting triggers are listed once at the bottom of this plan, along with the three-strike rule, the `Escalations_Log.md` artifact, and the resume-after-escalation policy.
 
 ---
 
@@ -29,27 +30,42 @@ Two structural rules govern this revision:
 | Data model | Pydantic v2 (`>= 2.7, < 3`) | Q7 v1 |
 | Structured output | Anthropic native `tool_use` (force `tool_choice`) | Q8 v1 |
 | Intentional defect | Option A (no `NoResultsError` on empty results) | Q12 v1, recommended in spec |
-| Defect implementation style | Missing code block **with a leading comment marker** at the gap | Q4 v2 (revised from v2 plan) |
-| Solutions in this build | **Written, verified, then converted to stubs** (new in v3) | Owner instruction (this turn) |
-| `solution/` directory | Default in plan: kept in repo, marked instructor-only. Open in v3 questions | New in v3 |
-| `DEFECTS.md` | Produced in this build alongside the validated solutions | Q13 v1 |
+| Defect implementation style | Missing code block **with a leading comment marker** at the gap | Q4 v2 |
+| **Marker comment wording** | **`# TODO: handle empty results`** (Option C) | **Q3 v3** |
+| **Marker pointer also in Level 1 test stub** | **Yes** | **Q4 v3** |
+| Solutions in this build | **Written, verified, then converted to stubs** | Owner instruction (v3 turn) |
+| `solution/` directory | **Kept in repo as instructor reference; warning header softened** ("spoilers are not a concern") | **Q1 v3** |
+| `solution/DEFECTS.md` | Produced in this build alongside the validated solutions | Q13 v1, Q2 v3 |
+| **Test placement: `test_result_fields_populated`** | **Level 2** (was Level 1 in v3 plan) | **Q8 v3** |
+| **Level 1 test count** | **3 tests** (1 passing example + 2 commented stubs) | **Q8 v3** |
+| **Level 2 test count** | **2 tests** (both commented stubs; both gated by API-key skip marker) | **Q8 v3** |
+| `NoResultsError` assertion in defect-catching test | Tighten to `pytest.raises(NoResultsError)` | Q9 v3 |
 | Pytest commenting | Extensive — starter files double as pytest tutorials | Q1 v1 |
-| Workshop coding budget | 30–45 min → Level 1 = 1 passing test + 3–4 stubs; Level 2 = 1 stub | Q2 v1 |
+| Workshop coding budget | 30–45 min → Level 1 = 1 passing + 2 stubs; Level 2 = 2 stubs | Q2 v1, refined by Q8 v3 |
 | Tavily | Required (each attendee brings own free-tier key, supplied at workshop) | Q3 v1, Q1/Q2 v2 |
 | Anthropic SDK | Latest stable at build time, may re-pin closer to June workshop | Q5 v1 |
 | Python | `>=3.11, <3.14` | Q6 v1 |
-| Sample outputs | JSON, **2 topics**, **real-but-stable URLs** | Q9 v1, Q6/Q7 v2 |
-| Level 1 prompts | Prompts attendees paste into Claude Code, **conversational voice** | Q10 v1, Q13 v2 |
-| **Level 2 prompts** | Same as Level 1 — produce a parallel `level2_prompts.md` | Q12 v2 (new) |
+| Sample outputs | JSON, **2 topics**, **real-but-stable URLs** | Q9 v1, Q6/Q7 v2, Q10 v3 |
+| Level 1 prompts | Conversational voice; mapped 1:1 to Level 1 tests | Q10 v1, Q13 v2 |
+| Level 2 prompts | Same — parallel `level2_prompts.md` | Q12 v2 |
 | Eval audience | Instructor-run during Segment 5; attendees can run after | Q11 v1 |
 | Eval judge model | `claude-sonnet-4-6`, pinned in a constant | Q8 v2 |
 | Eval rubric | Pass/fail per dimension | Q9 v2 |
-| Eval trace artifact | **Write run output to `sample_outputs/judge_eval_run.json`** | Q11 v2 (new) |
+| Eval trace artifact | Write to `sample_outputs/judge_eval_run.json` | Q11 v2 |
+| **Eval trace includes raw judge response text** | **Yes** | **Q5 v3** |
+| **Commit `judge_eval_run.json` to repo** | **Yes** — known-good example run | **Q7 v3** |
+| Eval trace overwrite vs. timestamp | Overwrite | Q6 v3 |
+| **`scripts/check_sample_urls.py`** | **New file — pre-workshop URL link checker** | **Q11 v3** |
 | `verify_setup.py` Tavily check | Trust the key — do not call | Q16 v2 |
-| `verify_setup.py` output | **Verbose with diagnostic detail** (versions, etc.) | Q17 v2 |
-| `requirements-lock.txt` | **Generate and commit** alongside `requirements.txt` | Q18 v2 |
+| `verify_setup.py` output | Verbose with diagnostic detail | Q17 v2 |
+| `requirements-lock.txt` | Generate and commit alongside `requirements.txt` | Q18 v2 |
 | Repo directory name | Leave as `research-summarizer-agent/` | Q19 v2 |
 | Branding/attribution | None | Q20 v2 |
+| **Escalation strike rule (ordinary tasks)** | **Three failed attempts with no new diagnostic** | **Q12 v3** |
+| **Escalation strike rule (validation gates Phase 8 / Phase 9 / secret-leak risk)** | **First failure escalates** | **Q12 v3, Q8 v4 default** |
+| **Escalation channel** | **Append to `notes/Escalations_Log.md` AND halt work** | **Q13 v3** |
+| **Resume-after-escalation behavior** | **Option B — re-validate the affected phase from the start** | **Q14 v3** |
+| **Build-time API key availability** | **Both keys available throughout the build** | **Q15 v3** |
 
 ---
 
@@ -67,17 +83,17 @@ research-summarizer-agent/         (existing working dir; do not rename)
 │   ├── tools.py
 │   ├── models.py
 │   └── prompts.py
-├── solution/                      (instructor-only — see solution/README.md)
-│   ├── README.md
+├── solution/                      (instructor reference)
+│   ├── README.md                  (one-line "instructor reference" note)
 │   ├── DEFECTS.md
 │   └── tests/
 │       ├── __init__.py
-│       ├── test_level1.py         (full solutions)
-│       └── test_level2.py         (full solutions)
+│       ├── test_level1.py         (3 full solution tests)
+│       └── test_level2.py         (2 full solution tests)
 ├── tests/
 │   ├── __init__.py
-│   ├── test_level1.py             (commented stubs derived from solution/)
-│   └── test_level2.py             (commented stub derived from solution/)
+│   ├── test_level1.py             (1 passing + 2 commented stubs)
+│   └── test_level2.py             (2 commented stubs)
 ├── evals/
 │   └── judge_eval.py
 ├── exercises/
@@ -86,7 +102,12 @@ research-summarizer-agent/         (existing working dir; do not rename)
 ├── sample_outputs/
 │   ├── photosynthesis.json
 │   ├── quantum_computing.json
-│   └── judge_eval_run.json        (produced by Phase 11)
+│   └── judge_eval_run.json        (committed; produced by Phase 11)
+├── scripts/
+│   └── check_sample_urls.py       (NEW per Q11 v3)
+├── notes/
+│   └── Escalations_Log.md         (NEW per Q13 v3 — created on demand only;
+│                                   absent if no escalations occurred)
 ├── verify_setup.py
 ├── .env.example
 ├── requirements.txt
@@ -135,7 +156,7 @@ Document `>=3.11,<3.14` in the README and have `verify_setup.py` enforce the ran
 
 Escalate to a human if any of:
 
-- `pip install -r requirements.txt` fails to resolve a working set within two attempts (e.g., a transitive conflict between Anthropic SDK and Pydantic versions). Do **not** loosen pins to escape — the spec requires explicit version control.
+- `pip install -r requirements.txt` fails to resolve a working set within three attempts (e.g., a transitive conflict between Anthropic SDK and Pydantic versions). Do **not** loosen pins to escape — the spec requires explicit version control.
 - Anthropic SDK's "latest stable" no longer supports `claude-haiku-4-5-20251001` (model deprecation, response-shape change). The pinned model is a teaching point and cannot be silently swapped.
 - The directory structure as drafted collides with an existing path that contains owner work (e.g., the `solution/` path exists and is non-empty before this build started).
 
@@ -158,7 +179,7 @@ Escalate to a human if any of:
 
 Escalate if:
 
-- The Pydantic v2 schema produced by `model_json_schema()` includes constructs Anthropic's tool-use endpoint rejects (`$ref`, deeply nested `anyOf`, etc.) and a single shape adjustment (e.g., flattening a `Union`) does not fix it. Do not silently switch off Pydantic v2 or fall back to JSON-mode.
+- The Pydantic v2 schema produced by `model_json_schema()` includes constructs Anthropic's tool-use endpoint rejects (`$ref`, deeply nested `anyOf`, etc.) and a single shape adjustment does not fix it. Do not silently switch off Pydantic v2 or fall back to JSON-mode.
 - Pydantic v2 emits validation behavior (e.g., automatic coercion) that the spec's "no field validators" rule turns out to depend on subtly. Surface the conflict; do not paper over.
 
 ---
@@ -217,7 +238,7 @@ Escalate if:
 
    Return a structured summary following the required schema.
    ```
-3. No conditional logic for empty results — the seeded defect (Phase 5) intentionally lets an empty list reach this function.
+3. No conditional logic for empty results — the seeded defect (Phase 9) intentionally lets an empty list reach this function.
 
 **Estimated size:** ~40 lines.
 
@@ -313,23 +334,19 @@ Escalate if:
 
 ### 7.1 `solution/README.md`
 
-A short, blunt warning:
+A one-line note (per Q1 v3 — "spoilers are not a concern"; aggressive warning softened):
 
 ```
-This directory contains the instructor reference implementation of the Research
-Summarizer Agent test suite. It is NOT for workshop attendees.
+This directory contains the instructor reference implementation of the test suite.
+Attendees should write their own tests in `tests/`.
 
-If you are an attendee: please ignore this directory. Open `tests/` instead.
-
-The contents of this directory:
-  - tests/test_level1.py — completed Level 1 solutions
-  - tests/test_level2.py — completed Level 2 solution
+Contents:
+  - tests/test_level1.py — completed Level 1 solutions (3 tests)
+  - tests/test_level2.py — completed Level 2 solutions (2 tests)
   - DEFECTS.md           — which defect was seeded into the agent and the fix
 ```
 
 ### 7.2 `solution/tests/test_level1.py`
-
-The full suite the v2 plan described as commented stubs — but here, uncommented and runnable.
 
 Imports: `pytest`, `summarize`, `StubSearchTool`, `SearchResult`, `NoResultsError`, `SearchToolError` from `agent`.
 
@@ -343,16 +360,15 @@ def stub_results():
     ]
 ```
 
-Tests (all four written, all four pass against the corrected Phase 5 agent):
+**Three** tests (all written, all pass against the corrected Phase 5 agent):
 
 1. `test_empty_topic_raises_value_error` — `summarize("")` raises `ValueError`.
-2. `test_no_results_raises_no_results_error` — inject `StubSearchTool(results=[])`, expect `NoResultsError`. **This is the defect-catching test.**
+2. `test_no_results_raises_no_results_error` — inject `StubSearchTool(results=[])`, expect **specifically** `NoResultsError` (per Q9 v3 — tightened, do not broaden to "any failure"). **This is the defect-catching test.**
 3. `test_search_tool_error_propagates` — inject a stub whose `.search()` raises `SearchToolError`; expect propagation.
-4. `test_result_fields_populated` — inject `stub_results`, call `summarize(...)`, assert `result.topic`, `result.synopsis`, `result.key_findings`, and `result.citations` are present and non-empty. (Note: this calls real Anthropic; document the API-key requirement at the top.)
 
-> Decision point: if `test_result_fields_populated` proves flaky during validation, replace it (in both solution and stubs) with a structural test using a recording stub that asserts `search_tool.search()` was called exactly once with the expected args. Decision is made during Phase 8 based on observed behavior.
+> Note: `test_result_fields_populated` is **not** at Level 1 — it was relocated to Level 2 (Q8 v3) because it requires a real Anthropic API call.
 
-**Estimated size:** ~90 lines (no commenting-out).
+**Estimated size:** ~75 lines (no commenting-out).
 
 ### 7.3 `solution/tests/test_level2.py`
 
@@ -367,41 +383,38 @@ pytestmark = pytest.mark.skipif(
 )
 ```
 
-One test (uncommented, runnable):
+**Two** tests (both written, both runnable; both gated by the skip marker):
 
-```python
-def test_photosynthesis_summary(monkeypatch):
-    monkeypatch.setenv("SUMMARIZER_MODEL", TEST_MODEL)
-    monkeypatch.setenv("SUMMARIZER_TEMPERATURE", str(TEST_TEMPERATURE))
-    result = summarize("photosynthesis")
-    assert len(result.key_findings) >= 2
-    assert len(result.citations) >= 1
-```
+1. `test_photosynthesis_summary` — pins model and temperature via `monkeypatch`, calls `summarize("photosynthesis")`, asserts `len(result.key_findings) >= 2` and `len(result.citations) >= 1`.
 
-**Estimated size:** ~30 lines.
+2. `test_result_fields_populated` (relocated from Level 1 per Q8 v3) — pins model and temperature, injects `stub_results` via the `search_tool=` parameter, asserts `result.topic`, `result.synopsis`, `result.key_findings`, and `result.citations` are present and non-empty. Calls real Anthropic; the stubbed search side keeps the test fast and deterministic on its search dimension while still exercising the model on its summarization dimension.
+
+> **Decision point:** if `test_result_fields_populated` proves flaky during Phase 8 validation, replace it (in both solution and stub form) with a structural test using a recording stub that asserts `search_tool.search()` was called exactly once with the expected args. Decision is made during Phase 8 based on observed behavior.
+
+**Estimated size:** ~50 lines.
 
 ### Escalation Criteria — Phase 7
 
 Escalate if:
 
-- The owner has not provided a build-time `ANTHROPIC_API_KEY` and `TAVILY_API_KEY`. Phase 8 cannot validate the Level 2 solution without them. Do not skip the validation; ask.
-- `test_result_fields_populated` requires a non-trivial change to compile or run (beyond the documented decision-point alternative). Stop and discuss whether the test belongs at Level 1 or should move to Level 2.
+- The owner has not provided a build-time `ANTHROPIC_API_KEY` and `TAVILY_API_KEY` (Q15 v3 said both will be present — flag any gap immediately, this is first-failure given Phase 8/9 cannot proceed).
+- `test_result_fields_populated` requires a non-trivial change to compile or run beyond the documented decision-point alternative. Stop and discuss whether the test's shape is right.
 
 ---
 
 ## Phase 8: Validate Solutions Against the Corrected Agent
 
-**Goal:** Prove that every solution test passes against the Phase 5 (correct) agent. This is the gate before the defect is seeded.
+**Goal:** Prove that every solution test passes against the Phase 5 (correct) agent. **First-failure escalation gate** — any unexpected outcome here halts the build.
 
 ### Steps
 
 1. Confirm Phase 5 agent has the empty-results guard in place.
 2. Run `pytest solution/tests/test_level1.py -v` from the repo root.
 3. Run `pytest solution/tests/test_level2.py -v` (requires both API keys present).
-4. **All seven tests** (4 Level 1 + 1 Level 2 + however many implicit checks the runner exposes) must pass. Capture the run summary.
+4. **All five tests** (3 Level 1 + 2 Level 2) must pass. Capture the run summary verbatim — this is evidence captured later in `solution/DEFECTS.md`.
 5. Re-run Level 2 once more to detect flakiness. If pass/fail differs across runs, the assertion threshold or temperature handling is wrong — escalate.
 
-### Escalation Criteria — Phase 8
+### Escalation Criteria — Phase 8 (first-failure)
 
 Escalate if:
 
@@ -409,31 +422,33 @@ Escalate if:
 - Any Level 2 test produces a different outcome across two consecutive `temperature=0` runs on the same input. The assertion is too tight, the prompt is unstable, or the search-tool output is varying — none of these are silently fixable.
 - A test passes but emits warnings that suggest it is testing the wrong thing (e.g., `pytest` warnings about a fixture not being used, or imports that resolve unexpectedly).
 
+> Phase 8 does **not** use the three-strike rule — the gate exists *to* surface deviation; first failure is the escalation trigger.
+
 ---
 
 ## Phase 9: Seed the Defect and Re-validate
 
-**Goal:** Insert the workshop's intentional defect into `agent/agent.py`, then prove the solution suite catches it as designed.
+**Goal:** Insert the workshop's intentional defect into `agent/agent.py`, then prove the solution suite catches it as designed. **First-failure escalation gate.**
 
 ### 9.1 Defect Insertion
 
-In `agent/agent.py`, **remove** the empty-results guard added in Phase 5. Replace it with a **single-line comment marker** at the gap, per the Q4 v2 answer:
+In `agent/agent.py`, **remove** the empty-results guard added in Phase 5. Replace it with a **single-line comment marker** at the gap:
 
 ```python
 results = search_tool.search(topic, max_results=5)
-# (handle empty results before prompting)
+# TODO: handle empty results
 user_message = build_user_message(topic, results)
 ```
 
-The exact wording of the marker comment is open in `Creation_Questions_v3.md` — the line above is the placeholder this plan uses; the build engineer should treat it as provisional pending owner confirmation.
+The marker wording is locked at `# TODO: handle empty results` per Q3 v3 (Option C — the most explicit of the candidates).
 
 ### 9.2 Re-validation
 
 1. Run `pytest solution/tests/test_level1.py -v`.
-2. Expect: `test_no_results_raises_no_results_error` **fails**; the other three pass.
+2. Expect: `test_no_results_raises_no_results_error` **fails**; the other two Level 1 tests pass.
 3. Run `pytest solution/tests/test_level2.py -v`.
-4. Expect: `test_photosynthesis_summary` continues to pass (the defect does not affect topics with real results).
-5. Capture the run summary as evidence in `solution/DEFECTS.md`.
+4. Expect: both Level 2 tests continue to pass (the defect does not affect topics with real results, and `test_result_fields_populated` uses non-empty stub results).
+5. Capture both run summaries verbatim as evidence in `solution/DEFECTS.md`.
 
 ### 9.3 `solution/DEFECTS.md`
 
@@ -455,8 +470,8 @@ prompt-building step and calls the LLM with no results.
 ## Where it lives
 
 `agent/agent.py`, in `summarize()`, immediately after the `search_tool.search(...)`
-call. The marker comment `# (handle empty results before prompting)` is the only
-hint in the source; no `TODO`, no docstring note.
+call. The marker comment `# TODO: handle empty results` is the only hint in the
+source.
 
 ## Which test catches it
 
@@ -477,12 +492,14 @@ user_message = build_user_message(topic, results)
 
 ## Validation evidence
 
-- Solution Phase 8 run (corrected agent): all tests pass.
-- Solution Phase 9 run (defective agent): only
-  `test_no_results_raises_no_results_error` fails.
+- Phase 8 run (corrected agent): all 5 tests pass.
+- Phase 9 run (defective agent): only
+  `test_no_results_raises_no_results_error` fails; the other 4 pass.
+
+(Verbatim pytest output captured at build time appended below.)
 ```
 
-### Escalation Criteria — Phase 9
+### Escalation Criteria — Phase 9 (first-failure)
 
 Escalate if:
 
@@ -498,38 +515,42 @@ Escalate if:
 
 ### 10.1 `tests/test_level1.py`
 
-- Copy the imports, header docstring, and fixture from the solution file. The header docstring expands here to teach pytest fundamentals (fixtures, `pytest.raises`, what an arrange/act/assert structure looks like) — attendees who are new to pytest meet these concepts first in the stub file, not in the solution.
+- Copy the imports, header docstring, and `stub_results` fixture from the solution file. The header docstring expands here to teach pytest fundamentals (fixtures, `pytest.raises`, arrange/act/assert) — attendees who are new to pytest meet these concepts first in the stub file.
 - Keep `test_empty_topic_raises_value_error` **uncommented** and passing — this is the example test the stubs are modeled after.
-- Convert each of the other three solution tests into commented-out shells using arrange/act/assert narration:
+- Convert `test_no_results_raises_no_results_error` into a commented-out shell **with a marker pointer comment** per Q4 v3:
   ```python
   # def test_no_results_raises_no_results_error():
+  #     # Hint: see the `# TODO: handle empty results` marker in agent/agent.py
   #     # Arrange: build a StubSearchTool with an empty results list
   #     # Act: call summarize() with that tool
   #     # Assert: pytest.raises(NoResultsError) wraps the call
   #     pass
   ```
+- Convert `test_search_tool_error_propagates` into a commented-out shell using the same arrange/act/assert narration (no marker pointer; this stub does not point at the seeded defect).
 - Do **not** include the assertion bodies, the exact stub construction, or the fixture call patterns in the comments — those are what attendees write.
 
 ### 10.2 `tests/test_level2.py`
 
 - Copy constants and skip guard from the solution file.
-- Convert the single `test_photosynthesis_summary` solution into a commented shell with a header comment explaining why model and temperature are pinned (workshop teaching point).
-- Include a sentence-long note that this test costs a real Anthropic + Tavily call per run — attendees should run it sparingly to preserve their free-tier quota.
+- Convert each of the two Level 2 solution tests into commented shells:
+  - `test_photosynthesis_summary` — header comment explaining why model and temperature are pinned (workshop teaching point).
+  - `test_result_fields_populated` — header comment noting that this test uses `StubSearchTool` for the search side (deterministic) but calls real Anthropic (non-deterministic), and that this combination is what makes it Level 2 rather than Level 1.
+- Include a sentence-long note that these tests cost real Anthropic + Tavily calls — attendees should run them sparingly to preserve their free-tier quota.
 
-**Estimated combined size:** ~90 lines (Level 1) + ~50 lines (Level 2), including comments.
+**Estimated combined size:** ~80 lines (Level 1) + ~80 lines (Level 2), including comments.
 
 ### Escalation Criteria — Phase 10
 
 Escalate if:
 
-- A solution test cannot be reduced to a meaningful stub without either (a) revealing the answer or (b) leaving an attendee with too little to work from. The test is the wrong shape for a stub — discuss replacing it.
+- A solution test cannot be reduced to a meaningful stub without either revealing the answer or leaving an attendee with too little to work from. The test is the wrong shape for a stub — discuss replacing it.
 - Any commented stub fails to import or causes pytest collection errors. Stubs must compile cleanly even before an attendee uncomments them.
 
 ---
 
 ## Phase 11: Evals — `evals/judge_eval.py`
 
-**Goal:** Pre-built LLM-as-judge demo for workshop Segment 5; instructor-run during the workshop, attendee-runnable afterwards. Writes a trace artifact to `sample_outputs/judge_eval_run.json`.
+**Goal:** Pre-built LLM-as-judge demo for workshop Segment 5; instructor-run during the workshop, attendee-runnable afterwards. Writes a trace artifact to `sample_outputs/judge_eval_run.json`, **including the verbatim judge response** (Q5 v3). The trace file is **committed to the repo** as a known-good example run (Q7 v3).
 
 ### Tasks
 
@@ -556,14 +577,16 @@ Escalate if:
        "synopsis_quality": "pass" | "fail",
        "findings_count": "pass" | "fail"
      },
+     "raw_judge_response": "...",
      "overall_score": "X/4",
      "run_at": "ISO-8601 timestamp"
    }
    ```
+   The exact field name `raw_judge_response` and whether it stores concatenated text vs. the full Anthropic Message object are open in `Creation_Questions_v4.md` (Q1, Q2). Plan default is `raw_judge_response` holding concatenated text from `text` blocks.
 6. **Comments:** Each rubric dimension explained inline so attendees can study it later.
-7. **Idempotent:** No caching, no flags. Running `python evals/judge_eval.py` from repo root with both API keys set just works. Re-running overwrites the JSON trace.
+7. **Idempotent:** No caching, no flags. Running `python evals/judge_eval.py` from repo root with both API keys set just works. Re-running overwrites the JSON trace; the build engineer commits the new file when prompts or pins change.
 
-**Estimated size:** ~150 lines including comments.
+**Estimated size:** ~160 lines including comments.
 
 ### Escalation Criteria — Phase 11
 
@@ -581,13 +604,12 @@ Escalate if:
 
 ### 12.1 `exercises/level1_prompts.md`
 
-4–6 prompts mapped 1:1 to the Level 1 stubs:
+3–5 prompts mapped 1:1 to the (now 3) Level 1 tests:
 
 - "I'm working on a test that needs to confirm `summarize('')` raises a `ValueError`. The agent already exposes `StubSearchTool`, so I shouldn't need to make any real API calls — can you walk me through the test?"
-- "I want to verify that when the search tool returns no results, `summarize()` raises `NoResultsError`. How would I set up a `StubSearchTool` with an empty list to make that happen?"
+- "I want to verify that when the search tool returns no results, `summarize()` raises `NoResultsError`. There's a `# TODO: handle empty results` marker in `agent/agent.py` near the relevant code path. How would I set up a `StubSearchTool` with an empty list to make that happen?"
 - "Could you help me write a test where the search tool itself raises `SearchToolError` from inside `.search()`, and we want to confirm `summarize()` lets that exception propagate?"
-- "I'd like a test that checks the shape of a successful `SummaryResult` — that all four fields are populated and non-empty when `summarize()` is given the `stub_results` fixture."
-- (Optional 5th/6th prompts — e.g., parametrizing the empty-topic test for whitespace inputs, or a recording-stub variant.)
+- (Optional 4th/5th prompts — e.g., parametrizing the empty-topic test for whitespace inputs, or a recording-stub variant.)
 
 Each prompt:
 
@@ -597,9 +619,10 @@ Each prompt:
 
 ### 12.2 `exercises/level2_prompts.md`
 
-1–2 prompts mapped to the Level 2 stub:
+2–3 prompts mapped to the (now 2) Level 2 tests:
 
 - "I'm trying to write a constrained-model test for the photosynthesis topic. The agent needs to be invoked with `temperature=0` and the pinned Haiku model. How should I set up the test so it reads cleanly and asserts on the shape of the result rather than exact text?"
+- "I want to verify that when I pass pre-built search results into `summarize()` via the `search_tool=` parameter, the resulting `SummaryResult` has all four fields populated. The Anthropic side will be called for real but I want the search side to be deterministic. How do I structure that?"
 - (Optional) "Help me think through what additional Level 2 assertions might be worth adding — without making the test brittle to model wording variation."
 
 ### Escalation Criteria — Phase 12
@@ -613,22 +636,36 @@ Escalate if:
 
 ## Phase 13: Sample Outputs — `sample_outputs/`
 
-**Goal:** Concrete examples of `SummaryResult` shape and quality, using **real, stable URLs** (Q6 v2).
+**Goal:** Concrete examples of `SummaryResult` shape and quality, using **real, stable URLs** (Q6 v2; sources confirmed in Q10 v3).
 
 ### Tasks
 
 1. `photosynthesis.json` — simple, factual topic. 3 key findings, 3 citations.
 2. `quantum_computing.json` — technical, multi-perspective topic. 4 key findings, 4 citations.
-3. **Citation URLs:** Real but stable. Preferred sources (in order): Wikipedia article URLs, NIH/NCBI publication landing pages, NASA or DOE program pages, peer-reviewed open-access DOIs. Avoid news articles, blogs, and any URL that looks event-specific.
-4. **Pre-workshop link check:** Add a one-line note in the README that the build engineer (or owner) should curl each URL before the workshop date and replace any that 404 or redirect.
+3. **Citation URLs:** Real but stable. Preferred sources (in order, confirmed Q10 v3): Wikipedia article URLs, NIH/NCBI publication landing pages, NASA or DOE program pages, peer-reviewed open-access DOIs. Avoid news articles, blogs, and any URL that looks event-specific.
+4. **Pre-workshop link check:** automated via `scripts/check_sample_urls.py` (see Phase 13.5).
 5. Each file is a hand-curated, valid `SummaryResult` JSON serialization (importable via `SummaryResult.model_validate_json(open(...).read())` as a sanity check during build).
+
+### 13.5 `scripts/check_sample_urls.py` (Q11 v3)
+
+A small standalone script that:
+
+1. Loads each JSON in `sample_outputs/` (excluding `judge_eval_run.json`).
+2. For each `Citation.url` in each file, issues an HTTP GET (per Q3 v4 default — broader compatibility than HEAD; subject to owner confirmation).
+3. Prints one line per URL: `{file} | {url} | {status_code} | {elapsed_ms}`.
+4. Exits 0 if every URL returns 200; exits 1 if any URL returns non-200, times out, or fails DNS.
+5. No external dependencies beyond `urllib` (already in stdlib) — keep the script self-contained.
+6. README's pre-workshop section invokes it: `python scripts/check_sample_urls.py`.
+
+**Estimated size:** ~40 lines.
 
 ### Escalation Criteria — Phase 13
 
 Escalate if:
 
-- No stable, common URLs can be found for both topics that satisfy the "unlikely to change" criterion. Discuss whether to swap topics or revisit Q6 v2.
+- No stable, common URLs can be found for both topics that satisfy the "unlikely to change" criterion. Discuss whether to swap topics.
 - A sample, when validated through `SummaryResult.model_validate_json(...)`, fails parse — schema drift between this file and `models.py` shouldn't exist.
+- `scripts/check_sample_urls.py` reports a non-200 for any URL on first run. Replace the URL with a stable alternative; do not lower the script's pass threshold.
 
 ---
 
@@ -650,6 +687,7 @@ Escalate if:
 - Exit code `1` on any FAIL.
 - Each FAIL includes a remediation hint (e.g., "FAIL: ANTHROPIC_API_KEY not set. Add it to your .env file or export it: `export ANTHROPIC_API_KEY=sk-ant-...`").
 - Output is plain text suitable for screen-sharing.
+- Does **not** call `scripts/check_sample_urls.py` — that is workshop-prep, not attendee-prep.
 
 **Estimated size:** ~120 lines.
 
@@ -658,7 +696,7 @@ Escalate if:
 Escalate if:
 
 - The "minimal Anthropic API call" check exposes a billing or org-permissions edge case that the keys provided to attendees won't have access to.
-- Diagnostic output prints anything that looks like a leaked secret. Mask aggressively; if the masking heuristic is in doubt, ask.
+- Diagnostic output prints anything that looks like a leaked secret. Mask aggressively; if the masking heuristic is in doubt, ask. **First-failure escalation** — secret-leak risk does not get retried (cross-cutting #6 below).
 
 ---
 
@@ -673,17 +711,20 @@ Escalate if:
 3. **Setup** — `python -m venv`, activate, `pip install -r requirements.txt`, copy `.env.example` to `.env`, fill in keys, `python verify_setup.py`.
 4. **How the agent works** — link to `requirements/Research_Summarizer_Agent_Spec.md`. Two-paragraph summary inline.
 5. **Running tests** — `pytest tests/test_level1.py`, `pytest tests/test_level2.py`.
-6. **Running the eval** — `python evals/judge_eval.py`; mention the `sample_outputs/judge_eval_run.json` trace artifact.
+6. **Running the eval** — `python evals/judge_eval.py`; mention the committed `sample_outputs/judge_eval_run.json` trace artifact.
 7. **Design choices** — Pydantic v2 + native tool_use rationale. Pin date.
 8. **Pin-refresh playbook (Q15 v2)** — exact commands:
    ```
    pip install -U anthropic pydantic tavily-python pytest python-dotenv
    pip freeze > requirements-lock.txt
    # Manually update top-level pins in requirements.txt to match new versions.
+   # If prompts or models changed, also re-run:
+   #   python evals/judge_eval.py
+   # and commit the updated sample_outputs/judge_eval_run.json.
    ```
-9. **Sample output URL convention** — real, stable URLs (Wikipedia/NIH/etc.); pre-workshop link check note.
+9. **Sample output URL convention** — real, stable URLs (Wikipedia/NIH/etc.); pre-workshop link check via `python scripts/check_sample_urls.py`.
 10. **Troubleshooting** — common failures from `verify_setup.py` mapped to fixes.
-11. **Note for attendees:** `solution/` directory exists for instructor reference; attendees should ignore it.
+11. **Note for attendees:** `solution/` directory exists for instructor reference; attendees should ignore it. (Tone: matter-of-fact, no warning banner.)
 
 **Note:** `solution/DEFECTS.md` is **not** referenced from this README — it is purely an instructor reference.
 
@@ -707,12 +748,12 @@ Escalate if:
 | 5 | Agent (correct) | 2–4 | Wires everything; defect NOT yet inserted |
 | 6 | Package init | 5 | Re-exports from completed modules |
 | 7 | Author solutions | 6 | Need `from agent import ...` to work |
-| 8 | **Validate solutions vs. correct agent** | 5, 7 | Gate: all solutions must pass |
-| 9 | **Seed defect + re-validate** | 8 | Gate: only the defect-catching test fails |
-| 10 | Convert solutions to stubs | 9 | Stubs derived from validated solutions |
-| 11 | Evals | 6 | Calls `summarize()`; uses Sonnet judge |
+| 8 | **Validate solutions vs. correct agent** (first-failure gate) | 5, 7 | All 5 solution tests must pass |
+| 9 | **Seed defect + re-validate** (first-failure gate) | 8 | Only the defect-catching test fails |
+| 10 | Convert solutions to stubs | 9 | Stubs derived from validated solutions; marker pointer added in Level 1 stub |
+| 11 | Evals | 6 | Calls `summarize()`; uses Sonnet judge; writes committed trace |
 | 12 | Exercises | 10 | Mirrors stub tests |
-| 13 | Sample outputs | 2 | JSON serializations of `SummaryResult` |
+| 13 | Sample outputs + URL check script | 2 | JSON serializations of `SummaryResult`; `scripts/check_sample_urls.py` |
 | 14 | Verify setup | 1 | Standalone script; depends only on installed deps |
 | 15 | README | All | Describes the finished project |
 
@@ -722,20 +763,41 @@ Escalate if:
 
 Independent of any single phase, the agent team escalates to a human when **any** of the following occur:
 
-1. **Two-strike rule.** A discrete attempt at a single task fails twice with no new diagnostic information surfaced between attempts.
-2. **Spec / answers contradiction.** Two of (the spec, `Creation_Questions_v1.md`, `Creation_Questions_v2.md`, `Creation_Questions_v3.md`, this plan) disagree about a requirement.
-3. **Out-of-band dependency behavior.** Anthropic SDK, Tavily, or Pydantic emit behavior that is not documented here and does not have an obvious resolution within the spec.
-4. **Model-nondeterminism rule.** Any Level 2 or eval result that varies meaningfully across two consecutive runs at `temperature=0` on identical inputs.
-5. **Scope drift.** Any time the team would need to add a feature, abstraction, file, or dependency not explicitly authorized by the spec, this plan, or owner answers. Examples that **always** escalate: caching, retries, logging frameworks, CLI surface beyond `verify_setup.py`, additional models, additional search tools.
-6. **Secret-leak risk.** Any diagnostic output, sample file, or commit candidate that might contain an API key or credential.
-7. **Validation gate failure.** Phase 8 or Phase 9 produces an unexpected outcome (any test fails when it should pass, or vice versa, or the failure pattern in Phase 9 is wider or narrower than the single defect-catching test).
+1. **Three-strike rule (ordinary tasks).** A discrete attempt at a single task fails three times with no new diagnostic information surfaced between attempts. *(Q12 v3 — was two-strike in v3 plan.)*
+2. **First-failure rule (high-stakes).** Phase 8, Phase 9, and any secret-leak risk (cross-cutting #6 below) escalate on the very first failure. These exist precisely to surface deviation; retrying defeats the gate's purpose.
+3. **Spec / answers contradiction.** Two of (the spec, `Creation_Questions_v1.md`, `Creation_Questions_v2.md`, `Creation_Questions_v3.md`, this plan) disagree about a requirement.
+4. **Out-of-band dependency behavior.** Anthropic SDK, Tavily, or Pydantic emit behavior that is not documented here and does not have an obvious resolution within the spec.
+5. **Model-nondeterminism rule.** Any Level 2 or eval result that varies meaningfully across two consecutive runs at `temperature=0` on identical inputs.
+6. **Scope drift.** Any time the team would need to add a feature, abstraction, file, or dependency not explicitly authorized by the spec, this plan, or owner answers. Examples that **always** escalate: caching, retries, logging frameworks, CLI surface beyond `verify_setup.py`, additional models, additional search tools.
+7. **Secret-leak risk.** Any diagnostic output, sample file, or commit candidate that might contain an API key or credential. **First-failure** — never retry a redaction.
+8. **Validation gate failure.** Phase 8 or Phase 9 produces an unexpected outcome (any test fails when it should pass, or vice versa, or the failure pattern in Phase 9 is wider or narrower than the single defect-catching test). **First-failure.**
 
-### How to Escalate
+### How to Escalate (Q13 v3)
 
-- Stop the in-progress task immediately.
-- Do not commit the in-progress state to the main branch.
-- Surface to the human a short note containing: the phase, the trigger that fired, what was attempted, the observed result, and the team's best guess at the cause.
-- Wait for human direction before resuming. Do not auto-retry past the two-strike threshold.
+1. **Stop the in-progress task immediately.** Do not commit the in-progress state to the main branch.
+2. **Append an entry to `notes/Escalations_Log.md`.** If the file does not exist, create it. Use this template:
+
+   ```markdown
+   ## YYYY-MM-DD HH:MM UTC — Phase {N}: {one-line trigger}
+
+   **Phase:** {phase number and name}
+   **Trigger:** {which cross-cutting or per-phase criterion fired}
+   **Attempts:** {what was tried, in order}
+   **Observed result:** {what actually happened}
+   **Hypothesis:** {best-guess root cause}
+   **Halted at:** {the file/task the agent stopped on}
+
+   ---
+   ```
+
+   Every escalation gets logged regardless of whether the resolution requires code change. The log is append-only.
+3. **Halt.** Wait for human direction before resuming. Do not auto-retry past the strike threshold. Do not silently work around the trigger.
+
+### Resume-after-escalation (Q14 v3)
+
+When the human resumes the build, **the team re-validates everything from the start of the affected phase** (Q14 v3 Option B). "Affected phase" defaults to the phase in which the escalation fired (open in Q7 v4 for cross-phase edge cases). For Phase 8 / Phase 9 escalations, this means re-running the entire solution-test suite against the relevant agent state, not just the failing test.
+
+The point is to prevent partial-state inconsistency from leaking past the human's response. Compute is cheap; a hidden bad assumption is expensive.
 
 ---
 
@@ -744,17 +806,20 @@ Independent of any single phase, the agent team escalates to a human when **any*
 Before declaring the build complete:
 
 - [ ] `python verify_setup.py` exits 0 with all keys present (with diagnostic detail printed); exits 1 if Anthropic key missing.
-- [ ] **Phase 8 evidence:** all solution tests pass against the corrected Phase 5 agent (run summary captured in `solution/DEFECTS.md`).
-- [ ] **Phase 9 evidence:** with the defect re-introduced, only `test_no_results_raises_no_results_error` fails; all other solution tests still pass (run summary captured in `solution/DEFECTS.md`).
-- [ ] `pytest tests/test_level1.py` runs cleanly: 1 test passes; commented stubs are no-ops, not import errors.
+- [ ] **Phase 8 evidence:** all 5 solution tests pass against the corrected Phase 5 agent (verbatim run summary captured in `solution/DEFECTS.md`).
+- [ ] **Phase 9 evidence:** with the defect re-introduced, only `test_no_results_raises_no_results_error` fails; the other 4 solution tests still pass (verbatim run summary captured in `solution/DEFECTS.md`).
+- [ ] `pytest tests/test_level1.py` runs cleanly: 1 test passes; 2 commented stubs are no-ops, not import errors.
 - [ ] `pytest tests/test_level2.py` skips cleanly when `ANTHROPIC_API_KEY` is unset; runs successfully (after attendees uncomment) when keys are present.
 - [ ] `from agent import summarize, SummaryResult` works.
 - [ ] A live `summarize("photosynthesis")` returns a valid `SummaryResult` with non-empty fields.
-- [ ] `python evals/judge_eval.py` produces readable stdout output and writes `sample_outputs/judge_eval_run.json` with the documented schema.
+- [ ] `python evals/judge_eval.py` produces readable stdout output and writes `sample_outputs/judge_eval_run.json` with the documented schema (including `raw_judge_response`); the file is committed.
+- [ ] `python scripts/check_sample_urls.py` exits 0 — every citation URL in `sample_outputs/` resolves to HTTP 200.
 - [ ] Every `agent/*.py` file is under 100 lines (well under the 500-line CLAUDE.md ceiling).
 - [ ] No secrets in committed code; `.env.example` documents every variable.
-- [ ] Pin date recorded in README; pin-refresh playbook present; `requirements.txt` and `requirements-lock.txt` both committed.
-- [ ] `solution/` directory present with `README.md` warning header, `DEFECTS.md`, and validated test files (subject to v3 question Q1 — owner may direct relocation).
+- [ ] Pin date recorded in README; pin-refresh playbook present (with eval re-run note); `requirements.txt` and `requirements-lock.txt` both committed.
+- [ ] `solution/` directory present with `README.md` (one-line note), `DEFECTS.md`, and validated test files.
+- [ ] Marker comment `# TODO: handle empty results` present in `agent/agent.py` and pointer comment present in `tests/test_level1.py` for `test_no_results_raises_no_results_error`.
+- [ ] `notes/Escalations_Log.md` either absent (no escalations occurred) or every entry has a corresponding owner-resolved status.
 - [ ] No phase escalation outstanding.
 
 ---
@@ -764,10 +829,10 @@ Before declaring the build complete:
 - Multi-turn conversation, session state, memory.
 - Caching, deduplication, retry/backoff, rate limiting.
 - Streaming.
-- UI / CLI beyond `verify_setup.py`.
+- UI / CLI beyond `verify_setup.py` and `scripts/check_sample_urls.py`.
 - Logging frameworks (print is fine).
 - Auth beyond env-var API keys.
 
 ---
 
-*Document version: 3.0 — incorporates owner answers from `Creation_Questions_v2.md`, the analysis in `Creation_Thinking_v3.md`, and the new solution-first validation sequence and per-phase escalation criteria. Open items remaining in `Creation_Questions_v3.md`.*
+*Document version: 4.0 — incorporates owner answers from `Creation_Questions_v3.md`, the analysis in `Creation_Thinking_v4.md`, and the locked decisions on three-strike escalation, the `Escalations_Log.md` artifact, the relocation of `test_result_fields_populated` to Level 2, the `# TODO: handle empty results` marker plus its stub pointer, the committed eval trace with raw judge response, and the new `scripts/check_sample_urls.py` URL checker. Open items remaining in `Creation_Questions_v4.md`.*
