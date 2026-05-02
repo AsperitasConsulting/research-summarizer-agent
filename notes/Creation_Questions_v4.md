@@ -17,12 +17,12 @@ The v3 round closed most of the structural decisions. The questions below are ta
    - **A.** `raw_judge_response` (plan default — descriptive, matches the verdicts field's `judge_` prefix)
    - **B.** `judge_response_text` (more explicit about the type)
    - **C.** `judge_message` (shorter; risks confusion with `judge_prompt`)
-   - **Answer:**
+   - **Answer:** A.
 
 2. **Should `raw_judge_response` capture the full Anthropic `Message` object structure (content blocks, stop reason, usage), or just the concatenated text from the `text` blocks?**
    - **A.** Full object — most fidelity, useful for instructor demos showing token usage too.
    - **B.** Concatenated text only — simpler, smaller file, easier for attendees to read by eye.
-   - **Answer:**
+   - **Answer:** B.
 
 ---
 
@@ -32,13 +32,13 @@ The v3 round closed most of the structural decisions. The questions below are ta
    - **A.** HEAD — cheaper, but some sites (notably Wikipedia and a few CDN-fronted DOI hosts) return 405 to HEAD even though GET succeeds.
    - **B.** GET with response body discarded — universally compatible, slightly more bandwidth.
    - **Plan default:** B, for compatibility with the Wikipedia/NIH/NASA/DOI mix the owner confirmed in Q10 v3.
-   - **Answer:**
+   - **Answer:** B.
 
 4. **Should the script also verify `Content-Type: text/html` (or equivalent) to catch URLs that resolve but to a paywall/redirect page?**
    - Pro: catches more linkrot variants.
    - Con: increases false positives on legitimate redirects (e.g., NIH PMC PDF landing pages).
    - **Plan default:** No — only assert HTTP 200. Keep it simple.
-   - **Answer:**
+   - **Answer:** No.
 
 ---
 
@@ -62,13 +62,13 @@ The v3 round closed most of the structural decisions. The questions below are ta
 
    - **A.** Confirmed as drafted.
    - **B.** Adjust fields: ___
-   - **Answer:**
+   - **Answer:** A.
 
 6. **Does an entry need to be appended to `Escalations_Log.md` even when the escalation is resolved without code change (e.g., owner says "ignore, proceed")?**
    - **A.** Yes — every escalation gets logged regardless of resolution.
    - **B.** No — only escalations that change scope or cause re-validation get logged.
    - **Plan default:** A — append-only, resolution-agnostic.
-   - **Answer:**
+   - **Answer:** A.
 
 ---
 
@@ -80,7 +80,7 @@ The v3 round closed most of the structural decisions. The questions below are ta
    - **B.** Restart Phase 8 + Phase 9 together, since they share the validation-gate semantics.
    - **C.** Owner discretion at resume time — log entry asks the question explicitly.
    - **Plan default:** A.
-   - **Answer:**
+   - **Answer:** A.
 
 ---
 
@@ -92,7 +92,7 @@ The v3 round closed most of the structural decisions. The questions below are ta
    - **B.** Add: secret-leak-risk triggers (cross-cutting #6) are also first-failure — never retry a redaction.
    - **C.** Adjust differently.
    - **Plan default:** B (Phase 8, Phase 9, and secret-leak-risk are all first-failure).
-   - **Answer:**
+   - **Answer:** B.
 
 ---
 
@@ -103,4 +103,4 @@ The v3 round closed most of the structural decisions. The questions below are ta
    - **B.** Remove `solution/README.md` entirely (the directory name speaks for itself).
    - **C.** Keep a lightly emphasized warning anyway.
    - **Plan default:** A.
-   - **Answer:**
+   - **Answer:** A.
