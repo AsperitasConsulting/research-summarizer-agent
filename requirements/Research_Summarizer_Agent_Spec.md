@@ -37,7 +37,7 @@ research-summarizer/
 ├── exercises/
 │   └── level1_prompts.md # suggested Claude Code prompts for workshop Segment 3
 ├── sample_outputs/       # pre-generated SummaryResult examples
-├── solution/             # complete test suite (fast-forward branch only)
+├── solution/             # complete automated test suite (published answers)
 ├── verify_setup.py       # pre-workshop environment self-check
 ├── .env.example          # environment variable template
 ├── requirements.txt
@@ -320,7 +320,7 @@ The file must include working boilerplate for:
 
 ## Intentional Weaknesses
 
-***The agent must be seeded with at least one latent defect that Level 1 or Level 2 tests will surface.*** Nothing teaches testing like a test that catches something real. The build team should implement exactly one of the following and document which one was chosen in a `DEFECTS.md` file committed only to the `solution` branch.
+***The agent must be seeded with at least one latent defect that Level 1 or Level 2 tests will surface.*** Nothing teaches testing like a test that catches something real. The build team should implement exactly one of the following and document which one was chosen in a `solution/DEFECTS.md` file that ships with the workshop materials alongside the completed tests.
 
 | Option | Description | Caught at Level |
 |---|---|---|
@@ -358,14 +358,4 @@ The following are explicitly out of scope and must not be implemented:
 - Logging frameworks (print statements are acceptable for the workshop)
 - Authentication beyond API keys in environment variables
 
----
 
-## Open Questions for Build Team
-
-1. **Pydantic vs dataclass:** The spec leaves this to the build team. Document the choice and rationale in the repo README.
-2. **Tavily account provisioning:** Determine whether workshop attendees will use a shared Tavily key (simpler) or provision their own (more realistic). The stub fallback exists precisely to avoid this dependency during the workshop, but Level 2 tests that call the real search tool will need a key.
-3. **solution branch strategy:** The `solution/` directory in the spec above shows it as a folder, but a separate git branch is cleaner. Confirm approach with the instructor before build begins.
-
----
-
-*Document version: 1.0 draft -- for build team review*
