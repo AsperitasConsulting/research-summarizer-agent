@@ -90,6 +90,19 @@
       },
       "createdAt": "2026-05-02T19:12:10.314Z",
       "domain": "hive-mind"
+    },
+    "hive-worker-1777750290815-9e99": {
+      "agentId": "hive-worker-1777750290815-9e99",
+      "agentType": "worker",
+      "status": "idle",
+      "health": 1,
+      "taskCount": 0,
+      "config": {
+        "role": "worker",
+        "hiveRole": "worker"
+      },
+      "createdAt": "2026-05-02T19:31:30.815Z",
+      "domain": "hive-mind"
     }
   }
 }

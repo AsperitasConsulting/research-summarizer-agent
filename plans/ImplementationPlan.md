@@ -1,13 +1,14 @@
 # Implementation Plan: Research Summarizer Agent
 
-**Version:** 4.0
+**Version:** 5.0
 **Based on:**
 - `requirements/Research_Summarizer_Agent_Spec.md` v1.0 draft
 - `requirements/Testing-Pyramid.md`
-- `notes/Creation_Thinking_v4.md` (this revision)
+- `notes/Creation_Thinking_v5.md` (this revision)
 - `notes/Creation_Questions_v1.md` (with project-owner answers inline)
 - `notes/Creation_Questions_v2.md` (with project-owner answers inline)
 - `notes/Creation_Questions_v3.md` (with project-owner answers inline)
+- `notes/Creation_Questions_v4.md` (with project-owner answers inline)
 **Purpose:** Workshop teaching vehicle for the AI Agent Testing Pyramid (90-minute session)
 
 ---
@@ -62,10 +63,18 @@ Two structural rules govern this revision:
 | Repo directory name | Leave as `research-summarizer-agent/` | Q19 v2 |
 | Branding/attribution | None | Q20 v2 |
 | **Escalation strike rule (ordinary tasks)** | **Three failed attempts with no new diagnostic** | **Q12 v3** |
-| **Escalation strike rule (validation gates Phase 8 / Phase 9 / secret-leak risk)** | **First failure escalates** | **Q12 v3, Q8 v4 default** |
+| **Escalation strike rule (validation gates Phase 8 / Phase 9 / secret-leak risk)** | **First failure escalates** | **Q12 v3, Q8 v4 (confirmed)** |
 | **Escalation channel** | **Append to `notes/Escalations_Log.md` AND halt work** | **Q13 v3** |
+| **`Escalations_Log.md` entry template** | **Locked as drafted (Phase / Trigger / Attempts / Observed result / Hypothesis / Halted at)** | **Q5 v4** |
+| **Log entries on resolved-without-code-change escalations** | **Yes — append-only, resolution-agnostic** | **Q6 v4** |
 | **Resume-after-escalation behavior** | **Option B — re-validate the affected phase from the start** | **Q14 v3** |
+| **Scope of "affected phase" on resume** | **Restart only the phase in which the trigger fired** | **Q7 v4** |
 | **Build-time API key availability** | **Both keys available throughout the build** | **Q15 v3** |
+| **Eval trace field name** | **`raw_judge_response`** | **Q1 v4** |
+| **Eval trace `raw_judge_response` content** | **Concatenated text from `text` blocks only (not full Anthropic Message object)** | **Q2 v4** |
+| **`scripts/check_sample_urls.py` HTTP method** | **GET (body discarded)** | **Q3 v4** |
+| **`scripts/check_sample_urls.py` Content-Type assertion** | **None — assert HTTP 200 only** | **Q4 v4** |
+| **`solution/README.md` tone** | **One-line "instructor reference" note; no boldface, no all-caps** | **Q9 v4** |
 
 ---
 
@@ -562,7 +571,7 @@ Escalate if:
    - **Synopsis quality** — 2–4 sentences, on-topic, no opinions.
    - **Findings count** — 2–5 substantive findings.
 4. **Output to stdout** — labelled blocks for: agent result, judge prompt, judge verdict per dimension, overall pass count.
-5. **Output to file** — write `sample_outputs/judge_eval_run.json` containing the same content as a structured JSON document. Schema:
+5. **Output to file** — write `sample_outputs/judge_eval_run.json` containing the same content as a structured JSON document. Schema (locked per Q1 v4 / Q2 v4):
    ```json
    {
      "topic": "...",
@@ -582,7 +591,7 @@ Escalate if:
      "run_at": "ISO-8601 timestamp"
    }
    ```
-   The exact field name `raw_judge_response` and whether it stores concatenated text vs. the full Anthropic Message object are open in `Creation_Questions_v4.md` (Q1, Q2). Plan default is `raw_judge_response` holding concatenated text from `text` blocks.
+   `raw_judge_response` holds the **concatenated text from the judge response's `text` blocks only** — not the full Anthropic `Message` object (no `stop_reason`, no `usage`). This keeps the trace human-readable for instructor screen-shares; the trade is that the trace cannot demonstrate token usage. Idiomatic serialization: `"".join(b.text for b in resp.content if b.type == "text")`.
 6. **Comments:** Each rubric dimension explained inline so attendees can study it later.
 7. **Idempotent:** No caching, no flags. Running `python evals/judge_eval.py` from repo root with both API keys set just works. Re-running overwrites the JSON trace; the build engineer commits the new file when prompts or pins change.
 
@@ -651,11 +660,14 @@ Escalate if:
 A small standalone script that:
 
 1. Loads each JSON in `sample_outputs/` (excluding `judge_eval_run.json`).
-2. For each `Citation.url` in each file, issues an HTTP GET (per Q3 v4 default — broader compatibility than HEAD; subject to owner confirmation).
-3. Prints one line per URL: `{file} | {url} | {status_code} | {elapsed_ms}`.
-4. Exits 0 if every URL returns 200; exits 1 if any URL returns non-200, times out, or fails DNS.
-5. No external dependencies beyond `urllib` (already in stdlib) — keep the script self-contained.
-6. README's pre-workshop section invokes it: `python scripts/check_sample_urls.py`.
+2. For each `Citation.url` in each file, issues an HTTP **GET** (locked per Q3 v4 — broader compatibility than HEAD; the response body is read and discarded so the connection closes promptly).
+3. **Does not assert Content-Type** (per Q4 v4) — only HTTP status `200` counts as a pass.
+4. Prints one line per URL: `{file} | {url} | {status_code} | {elapsed_ms}`.
+5. Exits `0` if every URL returns 200; exits `1` if any URL returns non-200, times out, or fails DNS.
+6. **Per-request timeout:** 5 seconds (open in `Creation_Questions_v5.md` for owner override; safe default if no answer arrives).
+7. **User-Agent:** sets `User-Agent: research-summarizer-link-check/1.0` to avoid Wikipedia/academic-publisher throttling of the default `Python-urllib/3.X` UA (open in `Creation_Questions_v5.md` for owner override; safe default if no answer arrives).
+8. No external dependencies beyond `urllib` (already in stdlib) — keep the script self-contained.
+9. README's pre-workshop section invokes it: `python scripts/check_sample_urls.py`.
 
 **Estimated size:** ~40 lines.
 
@@ -772,10 +784,10 @@ Independent of any single phase, the agent team escalates to a human when **any*
 7. **Secret-leak risk.** Any diagnostic output, sample file, or commit candidate that might contain an API key or credential. **First-failure** — never retry a redaction.
 8. **Validation gate failure.** Phase 8 or Phase 9 produces an unexpected outcome (any test fails when it should pass, or vice versa, or the failure pattern in Phase 9 is wider or narrower than the single defect-catching test). **First-failure.**
 
-### How to Escalate (Q13 v3)
+### How to Escalate (Q13 v3 / Q5 v4 / Q6 v4)
 
 1. **Stop the in-progress task immediately.** Do not commit the in-progress state to the main branch.
-2. **Append an entry to `notes/Escalations_Log.md`.** If the file does not exist, create it. Use this template:
+2. **Append an entry to `notes/Escalations_Log.md`.** If the file does not exist, create it. The template is **locked per Q5 v4**:
 
    ```markdown
    ## YYYY-MM-DD HH:MM UTC — Phase {N}: {one-line trigger}
@@ -790,12 +802,14 @@ Independent of any single phase, the agent team escalates to a human when **any*
    ---
    ```
 
-   Every escalation gets logged regardless of whether the resolution requires code change. The log is append-only.
+   **Every escalation gets logged regardless of resolution** (Q6 v4) — including escalations the owner resolves with "ignore, proceed." The log is append-only and doubles as a build retrospective.
 3. **Halt.** Wait for human direction before resuming. Do not auto-retry past the strike threshold. Do not silently work around the trigger.
 
-### Resume-after-escalation (Q14 v3)
+### Resume-after-escalation (Q14 v3 / Q7 v4)
 
-When the human resumes the build, **the team re-validates everything from the start of the affected phase** (Q14 v3 Option B). "Affected phase" defaults to the phase in which the escalation fired (open in Q7 v4 for cross-phase edge cases). For Phase 8 / Phase 9 escalations, this means re-running the entire solution-test suite against the relevant agent state, not just the failing test.
+When the human resumes the build, **the team re-validates the affected phase from its first task** (Q14 v3 Option B). "Affected phase" is **the phase in which the trigger fired — and only that phase** (Q7 v4 Option A). Phases that completed cleanly before the trigger are not re-validated.
+
+For Phase 8 / Phase 9 escalations, this means re-running the full solution-test suite against the relevant agent state, not just the failing test. For an escalation that fires during the defect-reinsertion sub-step of Phase 9, the team restarts Phase 9 only — Phase 8's evidence in `solution/DEFECTS.md` remains valid because the corrected-agent state is unchanged.
 
 The point is to prevent partial-state inconsistency from leaking past the human's response. Compute is cheap; a hidden bad assumption is expensive.
 
@@ -835,4 +849,4 @@ Before declaring the build complete:
 
 ---
 
-*Document version: 4.0 — incorporates owner answers from `Creation_Questions_v3.md`, the analysis in `Creation_Thinking_v4.md`, and the locked decisions on three-strike escalation, the `Escalations_Log.md` artifact, the relocation of `test_result_fields_populated` to Level 2, the `# TODO: handle empty results` marker plus its stub pointer, the committed eval trace with raw judge response, and the new `scripts/check_sample_urls.py` URL checker. Open items remaining in `Creation_Questions_v4.md`.*
+*Document version: 5.0 — incorporates owner answers from `Creation_Questions_v4.md` and the analysis in `Creation_Thinking_v5.md`. v5 locks the eval-trace `raw_judge_response` field name and its concatenated-text-only payload (Q1 v4 / Q2 v4), the `scripts/check_sample_urls.py` GET method and status-200-only assertion (Q3 v4 / Q4 v4), the `Escalations_Log.md` template (Q5 v4), the resolution-agnostic logging policy (Q6 v4), the restart-only-the-affected-phase resume scope (Q7 v4), the secret-leak-risk first-failure carveout (Q8 v4), and the softened solution-README tone (Q9 v4). Two micro-tactical questions about the URL checker's User-Agent header and per-request timeout remain in `Creation_Questions_v5.md`; both have safe defaults and do not block scaffolding.*
