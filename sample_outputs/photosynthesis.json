@@ -1,0 +1,26 @@
+{
+  "topic": "photosynthesis",
+  "synopsis": "Photosynthesis is the biological process by which plants, algae, and cyanobacteria convert light energy into chemical energy stored in carbohydrates. It uses water and carbon dioxide as inputs and releases molecular oxygen as a byproduct. The process unfolds in two coupled stages: light-dependent reactions in the thylakoid membranes that produce ATP and NADPH, and the light-independent Calvin cycle in the stroma that fixes carbon dioxide into sugar.",
+  "key_findings": [
+    "Photosynthesis converts light energy into chemical energy stored in glucose, using water and carbon dioxide as inputs and releasing oxygen as a byproduct.",
+    "The light-dependent reactions take place in the thylakoid membranes of chloroplasts and produce ATP and NADPH that power downstream sugar synthesis.",
+    "The Calvin cycle is the light-independent stage in which carbon dioxide is fixed and reduced to three-carbon sugars using the ATP and NADPH from the light reactions."
+  ],
+  "citations": [
+    {
+      "title": "Photosynthesis - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+      "snippet": "Photosynthesis is a biological process used by many cellular organisms to convert light energy into chemical energy, which is stored in organic compounds that can later be metabolized through cellular respiration to fuel the organism's activities."
+    },
+    {
+      "title": "Light-dependent reactions - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Light-dependent_reactions",
+      "snippet": "Light-dependent reactions take place in the thylakoid membranes of chloroplasts and use light energy to synthesize ATP and NADPH."
+    },
+    {
+      "title": "Calvin cycle - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Calvin_cycle",
+      "snippet": "The Calvin cycle is a series of chemical reactions that convert carbon dioxide into the three-carbon sugar glyceraldehyde 3-phosphate."
+    }
+  ]
+}
