@@ -1,4 +1,4 @@
-# Agent Creation Instructions
+# Agent Creation Planning Instructions
 
 > Initial plan
 - Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
@@ -39,3 +39,12 @@
 - Do not produce application code as I want to review the plan first.
 - Document your thinking in file notes/Creation_Thinking_v5.md. 
 - Document any questions you have in file notes/Creation_Questions_v5.md. 
+
+# Agent Creation Build-out Instructions
+> Environment Prep
+- Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
+- Examine the implementation plan for the agent and document that plan in plans/ImplementationPlan.md.
+- You should find environment variables needed for API keys.
+- Please examine the runtime environment and document any software installs or upgrades needed to execute the implementation plan in file plans/EnvironmentPreparation.md
+- Document your thinking in file notes/Implementation_Thinking_v1.md. 
+- Document any questions you have in file notes/Implementation_Questions_v1.md. 
