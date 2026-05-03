@@ -48,3 +48,11 @@
 - Please examine the runtime environment and document any software installs or upgrades needed to execute the implementation plan in file plans/EnvironmentPreparation.md.
 - Document your thinking in file notes/Implementation_Thinking_v1.md. 
 - Document any questions you have in file notes/Implementation_Questions_v1.md. 
+
+> Proceed with implementation
+- Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
+- Execute the implementation plan for the agent and document that plan in plans/ImplementationPlan.md in the order listed startiing with Phase 1.  
+- The .env file has all needed keys.
+- Follow guiding principals documented in the ImplementationPlan.md.
+- Document your thinking in file notes/Implementation_Thinking_v2.md. 
+- Document any questions you have in file notes/Implementation_Questions_v2.md. 
