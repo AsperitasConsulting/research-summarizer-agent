@@ -31,6 +31,21 @@ python verify_setup.py
 
 For the full design rationale and field semantics, see `requirements/Research_Summarizer_Agent_Spec.md`. The build plan that produced this code is in `plans/ImplementationPlan.md`.
 
+## Running the CLI
+
+A small CLI ships with the agent so attendees can drive it without writing Python. It takes a single positional `topic` argument:
+
+```bash
+python -m agent "photosynthesis"            # plain-text output to stdout
+python -m agent --json "quantum computing"  # SummaryResult as indented JSON
+```
+
+The CLI reads `ANTHROPIC_API_KEY` and (optionally) `TAVILY_API_KEY` from the environment, the same as the library. Without `TAVILY_API_KEY` the agent raises `NoResultsError`, which the CLI prints to stderr and exits with code 1. Errors are written to stderr in the form `error: <ExceptionClass>: <message>`; on success the exit code is 0.
+
+```bash
+python -m agent --help
+```
+
 ## Running tests
 
 ```bash

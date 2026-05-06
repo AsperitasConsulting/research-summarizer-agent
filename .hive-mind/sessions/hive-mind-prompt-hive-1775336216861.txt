@@ -6,13 +6,12 @@ You are the Queen coordinator of a Hive Mind swarm with collective intelligence 
 HIVE MIND CONFIGURATION:
 📌 Swarm ID: hive-1775336216861
 📌 Swarm Name: Hive Mind Swarm
-🎯 Objective: Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md. Execute the implementation plan for the agent and document that plan in plans/ImplementationPlan.md in the order listed startiing with Phase 1. The .env file has all needed keys.
-Follow guiding principals documented in the ImplementationPlan.md. Document your thinking in file notes/Implementation_Thinking_v2.md. Document any questions you have in file notes/Implementation_Questions_v2.md.
+🎯 Objective: Add a simple CLI for the agent that attendees can run in the workshop that takes topic argument and prints to standard out/error. Document how to run the CLI in the README.md and include it in the specifications file requirements/Research_Summarizer_Agent_Spec.md. Document your thinking in file notes/Implementation_Thinking_cli.md. Document any questions you have in file notes/Implementation_Questions_cli.md.
 👑 Queen Type: strategic
 🐝 Worker Count: 1
 🔗 Topology: hierarchical-mesh
 🤝 Consensus Algorithm: byzantine
-⏰ Initialized: 2026-05-03T20:22:40.012Z
+⏰ Initialized: 2026-05-06T09:11:06.192Z
 
 WORKER DISTRIBUTION:
 • worker: 1 agents
@@ -78,8 +77,7 @@ WORKER DISTRIBUTION:
    - Report final status
 
 🎯 YOUR OBJECTIVE:
-Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md. Execute the implementation plan for the agent and document that plan in plans/ImplementationPlan.md in the order listed startiing with Phase 1. The .env file has all needed keys.
-Follow guiding principals documented in the ImplementationPlan.md. Document your thinking in file notes/Implementation_Thinking_v2.md. Document any questions you have in file notes/Implementation_Questions_v2.md.
+Add a simple CLI for the agent that attendees can run in the workshop that takes topic argument and prints to standard out/error. Document how to run the CLI in the README.md and include it in the specifications file requirements/Research_Summarizer_Agent_Spec.md. Document your thinking in file notes/Implementation_Thinking_cli.md. Document any questions you have in file notes/Implementation_Questions_cli.md.
 
 ⚠️ CRITICAL — TOOL PREFERENCE RULES (#1422):
 • You MUST use Ruflo MCP tools (mcp__ruflo__*) for ALL orchestration tasks

@@ -24,7 +24,9 @@ Workshop attendees will be creating tests using Claude Code without the experime
 research-summarizer/
 ├── agent/
 │   ├── __init__.py
+│   ├── __main__.py       # `python -m agent` entry point (delegates to cli.main)
 │   ├── agent.py          # orchestration logic and main entry point
+│   ├── cli.py            # thin CLI wrapper around summarize()
 │   ├── tools.py          # search tool interface and implementations
 │   ├── models.py         # SummaryResult and supporting types
 │   └── prompts.py        # system prompt and prompt construction
@@ -294,6 +296,46 @@ All configuration must be via environment variables. No configuration files.
 
 ---
 
+## Command-Line Interface
+
+***A thin CLI wrapper around `summarize()` is provided so workshop attendees can run the agent without writing Python.*** The CLI must add no new behavior — only argument parsing, output formatting, and exception-to-exit-code mapping.
+
+### Invocation
+
+```bash
+python -m agent <topic>            # plain-text output
+python -m agent --json <topic>     # SummaryResult as indented JSON
+python -m agent --help             # usage
+```
+
+The implementation lives in `agent/cli.py` with `agent/__main__.py` as the package entry point. No `console_scripts` entry point or separate install step is required.
+
+### Arguments
+
+| Argument | Type | Required | Description |
+|---|---|---|---|
+| `topic` | positional, `str` | Yes | The subject to research. Must be non-empty after stripping whitespace. |
+| `--json` | flag | No | Emit `SummaryResult.model_dump_json(indent=2)` to stdout instead of plain text. |
+
+No flags for model, temperature, or API keys. Configuration remains entirely environment-variable-driven per the *Configuration* section.
+
+### Output
+
+- **stdout:** the `SummaryResult` only — plain-text by default, JSON when `--json` is passed. Nothing else is written to stdout.
+- **stderr:** error messages on a single line in the form `error: <ExceptionClass>: <message>`. Used for any of the four exceptions `summarize()` documents.
+
+### Exit Codes
+
+| Code | Meaning |
+|---|---|
+| 0 | Success — a `SummaryResult` was printed to stdout |
+| 1 | Any of the four documented exceptions was raised (`ValueError`, `NoResultsError`, `SearchToolError`, `anthropic.APIError`) |
+| 2 | argparse usage error (missing `topic`, unknown flag, etc.) |
+
+***The CLI catches only the four exceptions `summarize()` documents.*** Any other exception propagates as a Python traceback. Catching `Exception` would hide bugs from workshop attendees.
+
+---
+
 ## Test Starter Files
 
 ***The starter files are as important as the agent itself.*** They determine the workshop attendee experience. Each starter file must compile and run cleanly out of the box, with stubs that fail meaningfully rather than erroring on import.
@@ -354,7 +396,7 @@ The following are explicitly out of scope and must not be implemented:
 - Result caching or deduplication
 - Rate limiting or backoff retry logic
 - Streaming responses
-- Any UI or CLI beyond what `verify_setup.py` requires
+- Any UI or CLI beyond `verify_setup.py` and the workshop CLI specified in the *Command-Line Interface* section
 - Logging frameworks (print statements are acceptable for the workshop)
 - Authentication beyond API keys in environment variables
 
