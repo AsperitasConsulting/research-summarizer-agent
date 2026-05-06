@@ -56,3 +56,9 @@
 - Follow guiding principals documented in the ImplementationPlan.md.
 - Document your thinking in file notes/Implementation_Thinking_v2.md. 
 - Document any questions you have in file notes/Implementation_Questions_v2.md. 
+
+> Add a simple CLI
+- Add a simple CLI for the agent that attendees can run in the workshop that takes topic argument and prints to standard out/error.
+- Document how to run the CLI in the README.md and include it in the specifications file requirements/Research_Summarizer_Agent_Spec.md.
+- Document your thinking in file notes/Implementation_Thinking_cli.md. 
+- Document any questions you have in file notes/Implementation_Questions_cli.md. 
