@@ -1,175 +1,67 @@
-# Ruflo — Claude Code Configuration
+# CLAUDE.md
 
-## Rules
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Do what has been asked; nothing more, nothing less
-- NEVER create files unless absolutely necessary — prefer editing existing files
-- NEVER create documentation files unless explicitly requested
-- NEVER save working files or tests to root — use `/src`, `/tests`, `/docs`, `/config`, `/scripts`
-- ALWAYS read a file before editing it
-- NEVER commit secrets, credentials, or .env files
-- Keep files under 500 lines
-- Validate input at system boundaries
+## Purpose and constraints
 
-## Agent Comms (SendMessage-First Coordination)
+This is a **workshop teaching vehicle** for the AI Agent Testing Pyramid, not a production system. Every design decision is calibrated for ten-minute comprehension. The full source under `agent/` is intentionally under ~250 lines combined.
 
-Named agents coordinate via `SendMessage`, not polling or shared state.
+When making changes, preserve simplicity over robustness. Do not introduce abstractions, retry logic, caching, or extra layers (e.g. `instructor`) — the spec deliberately keeps Anthropic native `tool_use` as the only structured-output path.
 
-```
-Lead (you) ←→ architect ←→ developer ←→ tester ←→ reviewer
-              (named agents message each other directly)
-```
+Authoritative design docs:
+- `requirements/Research_Summarizer_Agent_Spec.md` — field semantics and design rationale
+- `requirements/Testing-Pyramid.md` — the testing model the workshop teaches
+- `plans/ImplementationPlan.md` — the build plan that produced the current code
 
-### Spawning a Coordinated Team
-
-```javascript
-// ALL agents in ONE message, each knows WHO to message next
-Agent({ prompt: "Research the codebase. SendMessage findings to 'architect'.",
-  subagent_type: "researcher", name: "researcher", run_in_background: true })
-Agent({ prompt: "Wait for 'researcher'. Design solution. SendMessage to 'coder'.",
-  subagent_type: "system-architect", name: "architect", run_in_background: true })
-Agent({ prompt: "Wait for 'architect'. Implement it. SendMessage to 'tester'.",
-  subagent_type: "coder", name: "coder", run_in_background: true })
-Agent({ prompt: "Wait for 'coder'. Write tests. SendMessage results to 'reviewer'.",
-  subagent_type: "tester", name: "tester", run_in_background: true })
-Agent({ prompt: "Wait for 'tester'. Review code quality and security.",
-  subagent_type: "reviewer", name: "reviewer", run_in_background: true })
-
-// Kick off the pipeline
-SendMessage({ to: "researcher", summary: "Start", message: "[task context]" })
-```
-
-### Patterns
-
-| Pattern | Flow | Use When |
-|---------|------|----------|
-| **Pipeline** | A → B → C → D | Sequential dependencies (feature dev) |
-| **Fan-out** | Lead → A, B, C → Lead | Independent parallel work (research) |
-| **Supervisor** | Lead ↔ workers | Ongoing coordination (complex refactor) |
-
-### Rules
-
-- ALWAYS name agents — `name: "role"` makes them addressable
-- ALWAYS include comms instructions in prompts — who to message, what to send
-- Spawn ALL agents in ONE message with `run_in_background: true`
-- After spawning: STOP, tell user what's running, wait for results
-- NEVER poll status — agents message back or complete automatically
-
-## Swarm & Routing
-
-### Config
-- **Topology**: hierarchical-mesh (anti-drift)
-- **Max Agents**: 15
-- **Memory**: hybrid
-- **HNSW**: Enabled
-- **Neural**: Enabled
+## Common commands
 
 ```bash
-npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 8 --strategy specialized
+# Setup
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # then add ANTHROPIC_API_KEY and TAVILY_API_KEY
+python verify_setup.py # exits 0 when env is fully wired
+
+# Run the agent
+python -m agent "photosynthesis"            # plain-text
+python -m agent --json "quantum computing"  # JSON SummaryResult
+
+# Tests
+pytest tests/test_level1.py     # fast, no API calls (mocked search tool)
+pytest tests/test_level2.py     # real Anthropic + Tavily; auto-skips if keys missing
+pytest tests/test_level1.py::test_name -v   # single test
+
+# Eval (LLM-as-judge, calls real API)
+python evals/judge_eval.py      # writes trace to sample_outputs/judge_eval_run.json
+
+# Sample-output URL liveness check
+python scripts/check_sample_urls.py
 ```
 
-### Agent Routing
+`conftest.py` at the repo root puts the project root on `sys.path` so `from agent import ...` works without a `pyproject.toml`.
 
-| Task | Agents | Topology |
-|------|--------|----------|
-| Bug Fix | researcher, coder, tester | hierarchical |
-| Feature | architect, coder, tester, reviewer | hierarchical |
-| Refactor | architect, coder, reviewer | hierarchical |
-| Performance | perf-engineer, coder | hierarchical |
-| Security | security-architect, auditor | hierarchical |
+## Architecture
 
-### When to Swarm
-- **YES**: 3+ files, new features, cross-module refactoring, API changes, security, performance
-- **NO**: single file edits, 1-2 line fixes, docs updates, config changes, questions
+The agent is stateless and runs a fixed five-step pipeline (`agent/agent.py::summarize`):
 
-### 3-Tier Model Routing
+1. Validate the topic string (raise `ValueError` if empty).
+2. Call the injected `SearchTool.search()` (Tavily by default; `StubSearchTool` in tests).
+3. Format a user message via `agent/prompts.py::build_user_message`.
+4. Call `claude-haiku-4-5-20251001` with `tool_choice` forcing the `return_summary` tool, whose `input_schema` is `SummaryResult.model_json_schema()`.
+5. Parse the `tool_use` block back into a `SummaryResult` via `model_validate`.
 
-| Tier | Handler | Use Cases |
-|------|---------|-----------|
-| 1 | Agent Booster (WASM) | Simple transforms — skip LLM, use Edit directly |
-| 2 | Haiku | Simple tasks, low complexity |
-| 3 | Sonnet/Opus | Architecture, security, complex reasoning |
+Key seams and conventions:
 
-## Memory & Learning
+- **`SearchTool` is a `Protocol`** (`agent/tools.py`). It is the only mock boundary for Level 1 tests — *do not* patch internals of `summarize()`. Inject a `StubSearchTool` instead. The agent (not the tool) is responsible for raising `NoResultsError` when the tool returns `[]`; this separation is what gives Level 1 tests a clean seam.
+- **No Pydantic validators on `SummaryResult` / `Citation`.** Per spec, all bounds (synopsis sentence count, findings count, citation provenance) are enforced by the prompt only. Don't add field constraints.
+- **Pinned model name** (`claude-haiku-4-5-20251001`), never an alias. Pin date is in `README.md`; refresh per the playbook there if stale.
+- **Eval judge** uses `claude-sonnet-4-6` (not the agent's model) to grade four pass/fail dimensions.
+- **Tavily timeout** is 10s, set in `TavilySearchTool._TIMEOUT_SECONDS`.
+- **Env overrides**: `SUMMARIZER_MODEL` and `SUMMARIZER_TEMPERATURE` are read at call time. `TAVILY_API_KEY` absence falls back to `StubSearchTool(results=[])`, which makes every call raise `NoResultsError`.
 
-### Before Any Task
-```bash
-npx @claude-flow/cli@latest memory search --query "[task keywords]" --namespace patterns
-npx @claude-flow/cli@latest hooks route --task "[task description]"
-```
+## Workshop-specific layout
 
-### After Success
-```bash
-npx @claude-flow/cli@latest memory store --namespace patterns --key "[name]" --value "[what worked]"
-npx @claude-flow/cli@latest hooks post-task --task-id "[id]" --success true --store-results true
-```
-
-### MCP Tools (use `ToolSearch("keyword")` to discover)
-
-| Category | Key Tools |
-|----------|-----------|
-| **Memory** | `memory_store`, `memory_search`, `memory_search_unified` |
-| **Bridge** | `memory_import_claude`, `memory_bridge_status` |
-| **Swarm** | `swarm_init`, `swarm_status`, `swarm_health` |
-| **Agents** | `agent_spawn`, `agent_list`, `agent_status` |
-| **Hooks** | `hooks_route`, `hooks_post-task`, `hooks_worker-dispatch` |
-| **Security** | `aidefence_scan`, `aidefence_is_safe`, `aidefence_has_pii` |
-| **Hive-Mind** | `hive-mind_init`, `hive-mind_consensus`, `hive-mind_spawn` |
-
-### Background Workers
-
-| Worker | When |
-|--------|------|
-| `audit` | After security changes |
-| `optimize` | After performance work |
-| `testgaps` | After adding features |
-| `map` | Every 5+ file changes |
-| `document` | After API changes |
-
-```bash
-npx @claude-flow/cli@latest hooks worker dispatch --trigger audit
-```
-
-## Agents
-
-**Core**: `coder`, `reviewer`, `tester`, `planner`, `researcher`
-**Architecture**: `system-architect`, `backend-dev`, `mobile-dev`
-**Security**: `security-architect`, `security-auditor`
-**Performance**: `performance-engineer`, `perf-analyzer`
-**Coordination**: `hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`
-**GitHub**: `pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`
-
-Any string works as a custom agent type.
-
-## Build & Test
-
-- ALWAYS run tests after code changes
-- ALWAYS verify build succeeds before committing
-
-```bash
-npm run build && npm test
-```
-
-## CLI Quick Reference
-
-```bash
-npx @claude-flow/cli@latest init --wizard           # Setup
-npx @claude-flow/cli@latest swarm init --v3-mode     # Start swarm
-npx @claude-flow/cli@latest memory search --query "" # Vector search
-npx @claude-flow/cli@latest hooks route --task ""    # Route to agent
-npx @claude-flow/cli@latest doctor --fix             # Diagnostics
-npx @claude-flow/cli@latest security scan            # Security scan
-npx @claude-flow/cli@latest performance benchmark    # Benchmarks
-```
-
-26 commands, 140+ subcommands. Use `--help` on any command for details.
-
-## Setup
-
-```bash
-claude mcp add claude-flow -- npx -y @claude-flow/cli@latest
-npx @claude-flow/cli@latest daemon start
-npx @claude-flow/cli@latest doctor --fix
-```
-
-**Agent tool** handles execution (agents, files, code, git). **MCP tools** handle coordination (swarm, memory, hooks). **CLI** is the same via Bash.
+- `tests/test_level1.py` and `tests/test_level2.py` are **commented stubs** for attendees to fill in. Reference solutions live in `solution/tests/` and should not be edited as part of "fixing the tests" — they are the answer key.
+- `solution/DEFECTS.md` is the instructor's defects writeup.
+- `sample_outputs/*.json` are hand-curated `SummaryResult` examples with stable URLs (Wikipedia, NIH, quantum.gov). Verify liveness with `scripts/check_sample_urls.py` before each session.
+- `exercises/`, `notes/`, `instructions/` hold workshop material. `plans/` and `requirements/` hold design docs.

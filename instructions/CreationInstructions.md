@@ -1,4 +1,4 @@
-# Agent Creation Instructions
+# Agent Creation Planning Instructions
 
 > Initial plan
 - Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
@@ -39,3 +39,26 @@
 - Do not produce application code as I want to review the plan first.
 - Document your thinking in file notes/Creation_Thinking_v5.md. 
 - Document any questions you have in file notes/Creation_Questions_v5.md. 
+
+# Agent Creation Build-out Instructions
+> Environment Prep
+- Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
+- Examine the implementation plan for the agent and document that plan in plans/ImplementationPlan.md.
+- You should find environment variables needed for API keys.
+- Please examine the runtime environment and document any software installs or upgrades needed to execute the implementation plan in file plans/EnvironmentPreparation.md.
+- Document your thinking in file notes/Implementation_Thinking_v1.md. 
+- Document any questions you have in file notes/Implementation_Questions_v1.md. 
+
+> Proceed with implementation
+- Examine requirements for an agent application documented in file requirements/Research_Summarizer_Agent_Spec.md.
+- Execute the implementation plan for the agent and document that plan in plans/ImplementationPlan.md in the order listed startiing with Phase 1.  
+- The .env file has all needed keys.
+- Follow guiding principals documented in the ImplementationPlan.md.
+- Document your thinking in file notes/Implementation_Thinking_v2.md. 
+- Document any questions you have in file notes/Implementation_Questions_v2.md. 
+
+> Add a simple CLI
+- Add a simple CLI for the agent that attendees can run in the workshop that takes topic argument and prints to standard out/error.
+- Document how to run the CLI in the README.md and include it in the specifications file requirements/Research_Summarizer_Agent_Spec.md.
+- Document your thinking in file notes/Implementation_Thinking_cli.md. 
+- Document any questions you have in file notes/Implementation_Questions_cli.md. 

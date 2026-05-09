@@ -1,0 +1,32 @@
+{
+  "topic": "quantum computing",
+  "synopsis": "Quantum computing performs computation using quantum-mechanical phenomena such as superposition and entanglement, with information encoded in qubits rather than classical bits. Specific quantum algorithms — including Shor's algorithm for integer factorization and Grover's algorithm for unstructured search — provide provable speedups over the best known classical algorithms for the same problems. Practical machines today are noisy and small, but governments and industry have invested heavily in scaling them and in developing post-quantum cryptography to remain secure as the technology matures.",
+  "key_findings": [
+    "Quantum computers represent information in qubits, which can exist in superpositions of basis states, enabling computational paths that have no classical analogue.",
+    "Shor's algorithm runs in polynomial time on a quantum computer for integer factorization, a problem with no known efficient classical algorithm and the basis of widely used public-key cryptography.",
+    "Grover's algorithm searches an unstructured space of N items in roughly sqrt(N) steps, providing a quadratic speedup over classical search.",
+    "The U.S. National Quantum Initiative coordinates federal investment in quantum information science, supporting research, workforce development, and technology transfer across multiple agencies."
+  ],
+  "citations": [
+    {
+      "title": "Qubit - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Qubit",
+      "snippet": "A qubit is the basic unit of quantum information that, unlike a classical bit, can exist in a superposition of the basis states."
+    },
+    {
+      "title": "Shor's algorithm - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Shor%27s_algorithm",
+      "snippet": "Shor's algorithm is a quantum algorithm for finding the prime factors of an integer, running in polynomial time."
+    },
+    {
+      "title": "Grover's algorithm - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Grover%27s_algorithm",
+      "snippet": "Grover's algorithm is a quantum algorithm for unstructured search that requires O(sqrt(N)) evaluations of an oracle."
+    },
+    {
+      "title": "National Quantum Initiative - Home",
+      "url": "https://www.quantum.gov/",
+      "snippet": "The National Quantum Initiative coordinates the federal government's quantum information science research, development, and standards efforts."
+    }
+  ]
+}
