@@ -1,0 +1,359 @@
+{
+  "run_timestamp": "2026-05-09T19-38-12Z",
+  "model": "claude-haiku-4-5-20251001",
+  "temperature": "0",
+  "topics": [
+    {
+      "topic": "photosynthesis",
+      "baseline_path": "sample_outputs/photosynthesis.json",
+      "baseline": {
+        "topic": "photosynthesis",
+        "synopsis": "Photosynthesis is the biological process by which plants, algae, and cyanobacteria convert light energy into chemical energy stored in carbohydrates. It uses water and carbon dioxide as inputs and releases molecular oxygen as a byproduct. The process unfolds in two coupled stages: light-dependent reactions in the thylakoid membranes that produce ATP and NADPH, and the light-independent Calvin cycle in the stroma that fixes carbon dioxide into sugar.",
+        "key_findings": [
+          "Photosynthesis converts light energy into chemical energy stored in glucose, using water and carbon dioxide as inputs and releasing oxygen as a byproduct.",
+          "The light-dependent reactions take place in the thylakoid membranes of chloroplasts and produce ATP and NADPH that power downstream sugar synthesis.",
+          "The Calvin cycle is the light-independent stage in which carbon dioxide is fixed and reduced to three-carbon sugars using the ATP and NADPH from the light reactions."
+        ],
+        "citations": [
+          {
+            "title": "Photosynthesis - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+            "snippet": "Photosynthesis is a biological process used by many cellular organisms to convert light energy into chemical energy, which is stored in organic compounds that can later be metabolized through cellular respiration to fuel the organism's activities."
+          },
+          {
+            "title": "Light-dependent reactions - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Light-dependent_reactions",
+            "snippet": "Light-dependent reactions take place in the thylakoid membranes of chloroplasts and use light energy to synthesize ATP and NADPH."
+          },
+          {
+            "title": "Calvin cycle - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Calvin_cycle",
+            "snippet": "The Calvin cycle is a series of chemical reactions that convert carbon dioxide into the three-carbon sugar glyceraldehyde 3-phosphate."
+          }
+        ]
+      },
+      "search_results": [
+        {
+          "title": "Photosynthesis",
+          "url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+          "snippet": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to create oxygen and energy in the form of sugar. Most life on Earth depends on photosynthesis.The process is carried out by plants, algae, and some types of bacteria, which capture energy from sunlight to produce oxygen (O2) and chemical energy stored in glucose (a sugar). During photosynthesis, plants take in carbon dioxide (CO2) and water (H2O) from the air and soil. This transforms the water into oxygen and the carbon dioxide into glucose. The plant then releases the oxygen back into the air, and stores energy within the glucose molecules. Within the thylakoid membranes of the chloroplast is a light-absorbing pigment called chlorophyll, which is responsible for giving the plant its green color. The chlorophyll absorbs energy from the light waves, which is converted into chemical energy in the form of the molecules ATP and NADPH."
+        },
+        {
+          "title": "Photosynthesis | Definition, Formula, Process, Diagram, Reactants, Products, & Facts | Britannica",
+          "url": "https://www.britannica.com/science/photosynthesis",
+          "snippet": "* History of the study of photosynthesis. # photosynthesis. Coauthor of *Photosynthesis of Carbon Compounds;...*. ### Why is photosynthesis important? Additionally, almost all the oxygen in the atmosphere is because of the process of photosynthesis. If photosynthesis ceased, there would soon be little food or other organic matter on Earth, most organisms would disappear, and Earth’s atmosphere would eventually become nearly devoid of gaseous oxygen. **photosynthesis**, the process by which green plants and certain other organisms transform light energy into chemical energy. During photosynthesis in green plants, light energy is captured and used to convert water, carbon dioxide, and minerals into oxygen and energy-rich organic compounds. ## Importance of photosynthesis. If photosynthesis ceased, there would soon be little food or other organic matter on Earth. Energy produced by photosynthesis carried out by plants millions of years ago is responsible for the fossil fuels (i.e., coal, oil, and natural gas) that power industrial society."
+        },
+        {
+          "title": "What is Photosynthesis | Smithsonian Science Education Center",
+          "url": "https://ssec.si.edu/stemvisions-blog/what-photosynthesis",
+          "snippet": "You are probably aware that plants need sunlight, water, and a home (like soil) to grow, but where do they get their food? Plants are called autotrophs because they can use energy from light to synthesize, or make, their own food source. Rather, plants use sunlight, water, and the gases in the air to make glucose, which is a form of sugar that plants need to survive. Infographic showing photosynthesis**By taking in water (H2O) through the roots, carbon dioxide (CO2) from the air, and light energy from the Sun, plants can perform photosynthesis to make glucose (sugars) and oxygen (O2).**CREDIT: mapichai/Shutterstock.com. The energy from light causes a chemical reaction that breaks down the molecules of carbon dioxide and water and reorganizes them to make the sugar (glucose) and oxygen gas. The whole process of photosynthesis is a transfer of energy from the Sun to a plant."
+        },
+        {
+          "title": "Photosynthesis - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+          "snippet": "[Jump to content](https://en.wikipedia.org/wiki/Photosynthesis#bodyContent). *   [(Top)](https://en.wikipedia.org/wiki/Photosynthesis#). *   [1 Overview](https://en.wikipedia.org/wiki/Photosynthesis#Overview). *   [2 Photosynthetic membranes and organelles](https://en.wikipedia.org/wiki/Photosynthesis#Photosynthetic_membranes_and_organelles). *   [3.1 Z scheme](https://en.wikipedia.org/wiki/Photosynthesis#Z_scheme). *   [3.2 Water photolysis](https://en.wikipedia.org/wiki/Photosynthesis#Water_photolysis). *   [4.1 Calvin cycle](https://en.wikipedia.org/wiki/Photosynthesis#Calvin_cycle). *   [4.2.1 On land](https://en.wikipedia.org/wiki/Photosynthesis#On_land). *   [4.2.2 In water](https://en.wikipedia.org/wiki/Photosynthesis#In_water). *   [6 Efficiency](https://en.wikipedia.org/wiki/Photosynthesis#Efficiency). *   [8.1 Discovery](https://en.wikipedia.org/wiki/Photosynthesis#Discovery). *   [8.2 Refinements](https://en.wikipedia.org/wiki/Photosynthesis#Refinements). *   [8.3 Development of the concept](https://en.wikipedia.org/wiki/Photosynthesis#Development_of_the_concept). *   [10 See also](https://en.wikipedia.org/wiki/Photosynthesis#See_also). *   [11 References](https://en.wikipedia.org/wiki/Photosynthesis#References). *   [12 Further reading](https://en.wikipedia.org/wiki/Photosynthesis#Further_reading)Toggle Further reading subsection. *   [12.1 Books](https://en.wikipedia.org/wiki/Photosynthesis#Books). *   [12.2 Papers](https://en.wikipedia.org/wiki/Photosynthesis#Papers). *   [13 External links](https://en.wikipedia.org/wiki/Photosynthesis#External_links). *   [Article](https://en.wikipedia.org/wiki/Photosynthesis \"View the content page [c]\"). *   [Talk](https://en.wikipedia.org/wiki/Talk:Photosynthesis \"Discuss improvements to the content page [t]\"). *   [Read](https://en.wikipedia.org/wiki/Photosynthesis). *   [Read](https://en.wikipedia.org/wiki/Photosynthesis). B. van Niel\") is:[[20]](https://en.wikipedia.org/wiki/Photosynthesis#cite_note-FOOTNOTEWhitmarshGovindjee199913-20). monoxide(used to build other compounds in subsequent reactions)[[22]](https://en.wikipedia.org/wiki/Photosynthesis#cite_note-22). In photosynthetic bacteria, the proteins that gather light for photosynthesis are embedded in [cell membranes](https://en.wikipedia.org/wiki/Cell_membrane \"Cell membrane\"). The overall equation for the light-dependent reactions under the conditions of non-cyclic electron flow in green plants is:[[30]](https://en.wikipedia.org/wiki/Photosynthesis#cite_note-Raven-2005-30). The source of electrons for photosynthesis in green plants and [cyanobacteria](https://en.wikipedia.org/wiki/Cyanobacteria \"Cyanobacteria\") is water. **[^](https://en.wikipedia.org/wiki/Photosynthesis#cite_ref-115)**Jones HG (2014). *   [Photosynthesis](https://en.wikipedia.org/wiki/Category:Photosynthesis \"Category:Photosynthesis\"). 158 languages[Add topic](https://en.wikipedia.org/wiki/Photosynthesis#)."
+        },
+        {
+          "title": "Why Study Photosynthesis | Center for Bioenergy and Photosynthesis",
+          "url": "https://bioenergy.asu.edu/why-study-photosynthesis",
+          "snippet": "The energy stored in petroleum, natural gas and coal all came from the sun via photosynthesis, as does the energy in firewood, which is a major fuel in many parts of the world. If we can understand and control the intricacies of the photosynthetic process, we can learn how to increase crop yields of food, fiber, wood, and fuel, and how to better use our lands. Because photosynthesis helps control the makeup of our atmosphere, understanding photosynthesis is crucial to understanding how carbon dioxide and other \"greenhouse gases\" affect the global climate. Although plants draw necessary materials from the soil and water and carbon dioxide from the air, the energy needs of the plant are filled by sunlight. It is the process by which plants change the energy in sunlight to kinds of energy that can be stored for later use. One of the major energy-harvesting processes in plants involves using the energy of sunlight to convert carbon dioxide from the air into sugars, starches, and other high-energy carbohydrates."
+        }
+      ],
+      "agent_output": {
+        "topic": "Photosynthesis",
+        "synopsis": "Photosynthesis is the process by which plants, algae, and certain bacteria convert sunlight, water, and carbon dioxide into oxygen and chemical energy stored as glucose. This fundamental biological process is essential to life on Earth, as it produces the oxygen in our atmosphere and forms the base of most food chains. The process occurs in the chloroplasts of plant cells, where the light-absorbing pigment chlorophyll captures energy from sunlight to drive chemical reactions.",
+        "key_findings": [
+          "Photosynthesis transforms light energy into chemical energy in the form of glucose (sugar) and oxygen, with plants taking in carbon dioxide and water as inputs and releasing oxygen as a byproduct.",
+          "Chlorophyll, the light-absorbing pigment in thylakoid membranes of chloroplasts, is responsible for the green color of plants and converts light energy into chemical energy molecules called ATP and NADPH.",
+          "If photosynthesis ceased, there would soon be little food or organic matter on Earth, most organisms would disappear, and the atmosphere would become nearly devoid of gaseous oxygen.",
+          "The energy stored in fossil fuels such as petroleum, natural gas, and coal all originated from the sun through photosynthesis carried out by plants millions of years ago.",
+          "Understanding photosynthesis is crucial for addressing climate change, as the process helps control atmospheric composition and the levels of carbon dioxide and other greenhouse gases."
+        ],
+        "citations": [
+          {
+            "title": "Photosynthesis",
+            "url": "https://education.nationalgeographic.org/resource/photosynthesis/",
+            "snippet": "Photosynthesis is the process by which plants use sunlight, water, and carbon dioxide to create oxygen and energy in the form of sugar. Within the thylakoid membranes of the chloroplast is a light-absorbing pigment called chlorophyll, which is responsible for giving the plant its green color."
+          },
+          {
+            "title": "Photosynthesis | Definition, Formula, Process, Diagram, Reactants, Products, & Facts | Britannica",
+            "url": "https://www.britannica.com/science/photosynthesis",
+            "snippet": "If photosynthesis ceased, there would soon be little food or other organic matter on Earth, most organisms would disappear, and Earth's atmosphere would eventually become nearly devoid of gaseous oxygen. Energy produced by photosynthesis carried out by plants millions of years ago is responsible for the fossil fuels (i.e., coal, oil, and natural gas) that power industrial society."
+          },
+          {
+            "title": "What is Photosynthesis | Smithsonian Science Education Center",
+            "url": "https://ssec.si.edu/stemvisions-blog/what-photosynthesis",
+            "snippet": "By taking in water (H2O) through the roots, carbon dioxide (CO2) from the air, and light energy from the Sun, plants can perform photosynthesis to make glucose (sugars) and oxygen (O2)."
+          },
+          {
+            "title": "Why Study Photosynthesis | Center for Bioenergy and Photosynthesis",
+            "url": "https://bioenergy.asu.edu/why-study-photosynthesis",
+            "snippet": "Because photosynthesis helps control the makeup of our atmosphere, understanding photosynthesis is crucial to understanding how carbon dioxide and other 'greenhouse gases' affect the global climate."
+          }
+        ]
+      },
+      "review": {
+        "reviewer": "",
+        "verdict": "",
+        "rubric": {
+          "factual_accuracy": "",
+          "citation_integrity": "",
+          "synopsis_quality": "",
+          "findings_count": ""
+        },
+        "notes": ""
+      }
+    },
+    {
+      "topic": "quantum computing",
+      "baseline_path": "sample_outputs/quantum_computing.json",
+      "baseline": {
+        "topic": "quantum computing",
+        "synopsis": "Quantum computing performs computation using quantum-mechanical phenomena such as superposition and entanglement, with information encoded in qubits rather than classical bits. Specific quantum algorithms — including Shor's algorithm for integer factorization and Grover's algorithm for unstructured search — provide provable speedups over the best known classical algorithms for the same problems. Practical machines today are noisy and small, but governments and industry have invested heavily in scaling them and in developing post-quantum cryptography to remain secure as the technology matures.",
+        "key_findings": [
+          "Quantum computers represent information in qubits, which can exist in superpositions of basis states, enabling computational paths that have no classical analogue.",
+          "Shor's algorithm runs in polynomial time on a quantum computer for integer factorization, a problem with no known efficient classical algorithm and the basis of widely used public-key cryptography.",
+          "Grover's algorithm searches an unstructured space of N items in roughly sqrt(N) steps, providing a quadratic speedup over classical search.",
+          "The U.S. National Quantum Initiative coordinates federal investment in quantum information science, supporting research, workforce development, and technology transfer across multiple agencies."
+        ],
+        "citations": [
+          {
+            "title": "Qubit - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Qubit",
+            "snippet": "A qubit is the basic unit of quantum information that, unlike a classical bit, can exist in a superposition of the basis states."
+          },
+          {
+            "title": "Shor's algorithm - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Shor%27s_algorithm",
+            "snippet": "Shor's algorithm is a quantum algorithm for finding the prime factors of an integer, running in polynomial time."
+          },
+          {
+            "title": "Grover's algorithm - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Grover%27s_algorithm",
+            "snippet": "Grover's algorithm is a quantum algorithm for unstructured search that requires O(sqrt(N)) evaluations of an oracle."
+          },
+          {
+            "title": "National Quantum Initiative - Home",
+            "url": "https://www.quantum.gov/",
+            "snippet": "The National Quantum Initiative coordinates the federal government's quantum information science research, development, and standards efforts."
+          }
+        ]
+      },
+      "search_results": [
+        {
+          "title": "What is Quantum Computing? - AWS",
+          "url": "https://aws.amazon.com/what-is/quantum-computing/",
+          "snippet": "Quantum computing is a multidisciplinary field comprising aspects of computer science, physics, and mathematics that utilizes quantum mechanics to solve"
+        },
+        {
+          "title": "DOE Explains...Quantum Computing - Department of Energy",
+          "url": "https://www.energy.gov/science/doe-explainsquantum-computing",
+          "snippet": "An official website of the United States government. A **.gov** website belongs to an official government organization in the United States. ) or **https://** means you’ve safely connected to the .gov website. # DOE Explains...Quantum Computing. **Quantum computers** are computers that consist of quantum bits, or “qubits,” that play a similar role to the bits in today's digital computers. ## DOE Office of Science: Contributions to Quantum Computing. Support for quantum computing research originated in the Advanced Scientific Computing Research program in 2017 and rapidly spread across the Office of Science. It also includes improving the fundamental building blocks of quantum computers, developing sophisticated control to make the most of any group of qubits, and computer science research that will ultimately make quantum computers easier to use. It also describes how these concepts apply to the work that the Department of Energy’s Office of Science conducts as it helps the United States excel in research across the scientific spectrum.*."
+        },
+        {
+          "title": "What Is Quantum Computing? - IBM",
+          "url": "https://www.ibm.com/think/topics/quantum-computing",
+          "snippet": "While quantum computing does use binary code, qubits process information differently from classical computers. While classical computers rely on bits (zeros and ones) to store and process data, quantum computers process data differently by using [quantum bits (qubits)](https://www.ibm.com/think/topics/qubit?) in superposition. Because qubits can hold a superposition and exhibit interference, a quantum computer that uses qubits approaches problems in ways different from classical computers. Nevertheless, researchers and computer scientists can still access off‑site quantum computing capabilities through [cloud computing](https://www.ibm.com/think/topics/cloud-computing). [Quantum processing units (QPUs)](https://www.ibm.com/think/topics/qpu) include the quantum chip, control electronics and classical compute hardware required for input and output. Fully realized quantum computers working in concert with [high-performance classical computers](https://www.ibm.com/think/topics/hpc) would be far superior to classical computers alone for certain kinds of problems like integer factorization. [Quantum utility](https://www.ibm.com/quantum/blog/what-is-quantum-utlity) refers to any quantum computation that provides reliable, accurate solutions to problems that are beyond the reach of brute force classical computing quantum-machine simulators. Read the article](https://www.ibm.com/quantum/blog/understanding-quantum-information-and-computation). [Explore Quantum computing solutions](https://www.ibm.com/quantum). 1. [Explore quantum computing solutions](https://www.ibm.com/quantum)."
+        },
+        {
+          "title": "Quantum Computing - Reddit",
+          "url": "https://www.reddit.com/r/QuantumComputing/",
+          "snippet": "r/QuantumComputing: Academic discussion of all things quantum computing from hardware through algorithms. Not the place for business speculation…"
+        },
+        {
+          "title": "Quantinuum |  Accelerating Quantum Computing",
+          "url": "https://www.quantinuum.com/",
+          "snippet": "#### Quantum Computers. # **Pioneering the next era of computing**. As the world’s largest integrated quantum company, Quantinuum is leading the development of the most powerful quantum computers and the most advanced quantum software solutions. # **Introducing Nexus:**Our all-in-one quantum computing platform. Introducing the beta availability of Quantinuum Nexus, our comprehensive platform built to simplify quantum computing workflows with its expert design and full-stack support. The world’s leading quantum computers, Powered by Honeywell. Our best-in-class quantum computers, software, and developer toolkits are designed to work seamlessly. “At Honeywell, we are dedicated to reducing cyber risk for our customers, enabling them to fully leverage their connected technology. Quantum Origin represents the next generation of quantum cybersecurity, built on stronger foundations than anything possible in the classical era.”. At Quantinuum, you’ll find pioneering scientists who are dedicated to uncovering new and exciting applications for quantum computing in the real world. Whether you work in hardware, software, sales, business, or operations, at Quantinuum you’ll get to be on the cutting edge of your field."
+        }
+      ],
+      "agent_output": {
+        "topic": "Quantum Computing",
+        "synopsis": "Quantum computing is a multidisciplinary field that combines computer science, physics, and mathematics to leverage quantum mechanics for solving complex problems. Unlike classical computers that use binary bits, quantum computers utilize quantum bits (qubits) that can exist in superposition, allowing them to process information in fundamentally different ways. Quantum computers working in concert with classical computers are expected to be far superior for certain types of problems, such as integer factorization.",
+        "key_findings": [
+          "Quantum computers use quantum bits (qubits) instead of classical bits, which can hold superposition and exhibit interference properties that enable different problem-solving approaches",
+          "Qubits process information differently from classical computers by utilizing superposition, allowing quantum computers to approach problems in ways that classical computers cannot",
+          "Quantum utility refers to quantum computations that provide reliable, accurate solutions to problems beyond the reach of classical computing and quantum-machine simulators",
+          "Quantum processing units (QPUs) include the quantum chip, control electronics, and classical compute hardware required for input and output operations",
+          "The U.S. Department of Energy's Office of Science has supported quantum computing research since 2017, focusing on improving fundamental building blocks, developing control systems, and advancing computer science research to make quantum computers more accessible"
+        ],
+        "citations": [
+          {
+            "title": "What Is Quantum Computing? - IBM",
+            "url": "https://www.ibm.com/think/topics/quantum-computing",
+            "snippet": "While classical computers rely on bits (zeros and ones) to store and process data, quantum computers process data differently by using quantum bits (qubits) in superposition. Because qubits can hold a superposition and exhibit interference, a quantum computer that uses qubits approaches problems in ways different from classical computers."
+          },
+          {
+            "title": "DOE Explains...Quantum Computing - Department of Energy",
+            "url": "https://www.energy.gov/science/doe-explainsquantum-computing",
+            "snippet": "Quantum computers are computers that consist of quantum bits, or 'qubits,' that play a similar role to the bits in today's digital computers. Support for quantum computing research originated in the Advanced Scientific Computing Research program in 2017 and rapidly spread across the Office of Science."
+          },
+          {
+            "title": "What is Quantum Computing? - AWS",
+            "url": "https://aws.amazon.com/what-is/quantum-computing/",
+            "snippet": "Quantum computing is a multidisciplinary field comprising aspects of computer science, physics, and mathematics that utilizes quantum mechanics to solve"
+          }
+        ]
+      },
+      "review": {
+        "reviewer": "",
+        "verdict": "",
+        "rubric": {
+          "factual_accuracy": "",
+          "citation_integrity": "",
+          "synopsis_quality": "",
+          "findings_count": ""
+        },
+        "notes": ""
+      }
+    },
+    {
+      "topic": "the discovery of penicillin",
+      "baseline_path": "sample_outputs/judge_eval_run.json",
+      "baseline": {
+        "topic": "the discovery of penicillin",
+        "agent_model": "claude-haiku-4-5-20251001",
+        "judge_model": "claude-sonnet-4-6",
+        "search_results": [
+          {
+            "title": "Discovery of penicillin - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Discovery_of_penicillin",
+            "snippet": "Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance, which he named"
+          },
+          {
+            "title": "The Discovery of Penicillin | PBS LearningMedia",
+            "url": "https://www.pbslearningmedia.org/resource/odys08.sci.life.gen.discovery/the-discovery-of-penicillin/",
+            "snippet": "Discover the story of researcher Sir Alexander Fleming, whose luck and scientific reasoning led to the groundbreaking discovery of penicillin in this video"
+          },
+          {
+            "title": "The Discovery of Penicillin—New Insights After More Than 75 Years ...",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5403050/",
+            "snippet": "In February 1941, the first person to receive penicillin was an Oxford policeman who was exhibiting a serious infection with abscesses throughout his body. The"
+          },
+          {
+            "title": "Alexander Fleming Discovery and Development of Penicillin",
+            "url": "https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html",
+            "snippet": "Designated November 19, 1999, at the Alexander Fleming Laboratory Museum in London, U.K. Also recognized at the U.S. Department of Agriculture National Center for Agricultural Utilization Research in Peoria, Ill., and the five American pharmaceutical companies that contributed to penicillin production research during WWII: Abbott Laboratories, Lederle Laboratories (now Pfizer, Inc.), Merck & Co., Inc., Chas. The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug, thus making a life-saving substance in limited supply into a widely available medicine. The WPB investigated more than 175 companies before selecting 21 to participate in a penicillin program under the direction of Albert Elder; in addition to Lederle, Merck, Pfizer and Squibb, Abbott Laboratories (which had also been among the major producers of clinical supplies of penicillin to mid-1943) was one of the first companies to begin large-scale production."
+          },
+          {
+            "title": "How was penicillin developed? | Science Museum",
+            "url": "https://www.sciencemuseum.org.uk/objects-and-stories/how-was-penicillin-developed",
+            "snippet": "Book your free general admission tickets to visit the Science Museum here. # How was penicillin developed? –  Part of Antibiotics and antibiotic resistance. The accidental discovery of a mouldy petri-dish in 1928 kickstarted a 20-year long journey to develop the world’s first mass produced drug that could clear a bacterial infection; penicillin. In 1928 Dr Alexander Fleming returned from a holiday to find mould growing on a Petri dish of Staphylococcus bacteria. He noticed the mould seemed to be preventing the bacteria around it from growing. Penicillin was labelled a laboratory curiosity and Fleming gave up attempts to purify it. See Alexander Fleming’s sample of Penicillium mould and discover more about the history of medicine in *Medicine: The Wellcome Galleries* at the Science Museum. Nearly ten years later in 1937, while investigating microorganisms and the substances they produced, Howard Florey and Ernst Chain uncovered Fleming’s research and assembled a team of scientists to work solely on the 'Penicillin Project'."
+          }
+        ],
+        "agent_result": {
+          "topic": "The Discovery of Penicillin",
+          "synopsis": "Penicillin was discovered accidentally by Scottish physician Alexander Fleming in 1928 when he observed mold growing on a petri dish of Staphylococcus bacteria and noticed it prevented bacterial growth. Initially dismissed as a laboratory curiosity, the discovery was rediscovered and developed into a life-saving antibiotic by Howard Florey and Ernst Chain in the late 1930s, with large-scale production later becoming possible through American pharmaceutical companies during World War II.",
+          "key_findings": [
+            "Alexander Fleming first experimentally demonstrated in 1928 that Penicillium mould secretes an antibacterial substance when he returned from holiday to find mould growing on a petri dish of Staphylococcus bacteria",
+            "Fleming initially abandoned attempts to purify penicillin, labeling it a laboratory curiosity until Howard Florey and Ernst Chain rediscovered his research nearly ten years later in 1937",
+            "The discovery of penicillin occurred in the United Kingdom, but the United States played the major role in developing large-scale production during World War II through a coordinated program with major pharmaceutical companies including Abbott Laboratories, Lederle Laboratories, Merck & Co., and Pfizer",
+            "In February 1941, the first person to receive penicillin was an Oxford policeman with a serious infection and abscesses throughout his body, marking a significant milestone in the drug's clinical application"
+          ],
+          "citations": [
+            {
+              "title": "Discovery of penicillin - Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Discovery_of_penicillin",
+              "snippet": "Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance"
+            },
+            {
+              "title": "How was penicillin developed? | Science Museum",
+              "url": "https://www.sciencemuseum.org.uk/objects-and-stories/how-was-penicillin-developed",
+              "snippet": "In 1928 Dr Alexander Fleming returned from a holiday to find mould growing on a Petri dish of Staphylococcus bacteria. He noticed the mould seemed to be preventing the bacteria around it from growing. Penicillin was labelled a laboratory curiosity and Fleming gave up attempts to purify it. Nearly ten years later in 1937, while investigating microorganisms and the substances they produced, Howard Florey and Ernst Chain uncovered Fleming's research"
+            },
+            {
+              "title": "Alexander Fleming Discovery and Development of Penicillin",
+              "url": "https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html",
+              "snippet": "The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug"
+            },
+            {
+              "title": "The Discovery of Penicillin—New Insights After More Than 75 Years",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5403050/",
+              "snippet": "In February 1941, the first person to receive penicillin was an Oxford policeman who was exhibiting a serious infection with abscesses throughout his body"
+            }
+          ]
+        },
+        "judge_prompt": "Topic: the discovery of penicillin\n\nSearch results provided to the agent:\n[\n  {\n    \"title\": \"Discovery of penicillin - Wikipedia\",\n    \"url\": \"https://en.wikipedia.org/wiki/Discovery_of_penicillin\",\n    \"snippet\": \"Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance, which he named\"\n  },\n  {\n    \"title\": \"The Discovery of Penicillin | PBS LearningMedia\",\n    \"url\": \"https://www.pbslearningmedia.org/resource/odys08.sci.life.gen.discovery/the-discovery-of-penicillin/\",\n    \"snippet\": \"Discover the story of researcher Sir Alexander Fleming, whose luck and scientific reasoning led to the groundbreaking discovery of penicillin in this video\"\n  },\n  {\n    \"title\": \"The Discovery of Penicillin\\u2014New Insights After More Than 75 Years ...\",\n    \"url\": \"https://pmc.ncbi.nlm.nih.gov/articles/PMC5403050/\",\n    \"snippet\": \"In February 1941, the first person to receive penicillin was an Oxford policeman who was exhibiting a serious infection with abscesses throughout his body. The\"\n  },\n  {\n    \"title\": \"Alexander Fleming Discovery and Development of Penicillin\",\n    \"url\": \"https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html\",\n    \"snippet\": \"Designated November 19, 1999, at the Alexander Fleming Laboratory Museum in London, U.K. Also recognized at the U.S. Department of Agriculture National Center for Agricultural Utilization Research in Peoria, Ill., and the five American pharmaceutical companies that contributed to penicillin production research during WWII: Abbott Laboratories, Lederle Laboratories (now Pfizer, Inc.), Merck & Co., Inc., Chas. The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug, thus making a life-saving substance in limited supply into a widely available medicine. The WPB investigated more than 175 companies before selecting 21 to participate in a penicillin program under the direction of Albert Elder; in addition to Lederle, Merck, Pfizer and Squibb, Abbott Laboratories (which had also been among the major producers of clinical supplies of penicillin to mid-1943) was one of the first companies to begin large-scale production.\"\n  },\n  {\n    \"title\": \"How was penicillin developed? | Science Museum\",\n    \"url\": \"https://www.sciencemuseum.org.uk/objects-and-stories/how-was-penicillin-developed\",\n    \"snippet\": \"Book your free general admission tickets to visit the Science Museum here. # How was penicillin developed? \\u2013  Part of Antibiotics and antibiotic resistance. The accidental discovery of a mouldy petri-dish in 1928 kickstarted a 20-year long journey to develop the world\\u2019s first\\u202fmass produced drug that could\\u202fclear a bacterial infection;\\u202fpenicillin. In 1928\\u202fDr Alexander Fleming\\u202freturned\\u202ffrom\\u202fa\\u202fholiday to\\u202ffind\\u202fmould growing on a Petri dish\\u202fof Staphylococcus bacteria. He noticed the mould seemed to be\\u202fpreventing\\u202fthe\\u202fbacteria\\u202faround it\\u202ffrom growing. Penicillin was\\u202flabelled a laboratory curiosity and Fleming gave up attempts\\u202fto purify it. See Alexander Fleming\\u2019s sample of Penicillium mould and discover more about the history of medicine in *Medicine: The Wellcome Galleries*\\u00a0at the Science Museum. Nearly ten years later in 1937,\\u202fwhile investigating microorganisms and the substances they produced, Howard Florey and Ernst\\u202fChain uncovered\\u202fFleming\\u2019s research\\u202fand\\u202fassembled\\u202fa team of scientists to work\\u202fsolely\\u202fon the 'Penicillin\\u202fProject'.\"\n  }\n]\n\nAgent output:\n{\n  \"topic\": \"The Discovery of Penicillin\",\n  \"synopsis\": \"Penicillin was discovered accidentally by Scottish physician Alexander Fleming in 1928 when he observed mold growing on a petri dish of Staphylococcus bacteria and noticed it prevented bacterial growth. Initially dismissed as a laboratory curiosity, the discovery was rediscovered and developed into a life-saving antibiotic by Howard Florey and Ernst Chain in the late 1930s, with large-scale production later becoming possible through American pharmaceutical companies during World War II.\",\n  \"key_findings\": [\n    \"Alexander Fleming first experimentally demonstrated in 1928 that Penicillium mould secretes an antibacterial substance when he returned from holiday to find mould growing on a petri dish of Staphylococcus bacteria\",\n    \"Fleming initially abandoned attempts to purify penicillin, labeling it a laboratory curiosity until Howard Florey and Ernst Chain rediscovered his research nearly ten years later in 1937\",\n    \"The discovery of penicillin occurred in the United Kingdom, but the United States played the major role in developing large-scale production during World War II through a coordinated program with major pharmaceutical companies including Abbott Laboratories, Lederle Laboratories, Merck & Co., and Pfizer\",\n    \"In February 1941, the first person to receive penicillin was an Oxford policeman with a serious infection and abscesses throughout his body, marking a significant milestone in the drug's clinical application\"\n  ],\n  \"citations\": [\n    {\n      \"title\": \"Discovery of penicillin - Wikipedia\",\n      \"url\": \"https://en.wikipedia.org/wiki/Discovery_of_penicillin\",\n      \"snippet\": \"Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance\"\n    },\n    {\n      \"title\": \"How was penicillin developed? | Science Museum\",\n      \"url\": \"https://www.sciencemuseum.org.uk/objects-and-stories/how-was-penicillin-developed\",\n      \"snippet\": \"In 1928 Dr Alexander Fleming returned from a holiday to find mould growing on a Petri dish of Staphylococcus bacteria. He noticed the mould seemed to be preventing the bacteria around it from growing. Penicillin was labelled a laboratory curiosity and Fleming gave up attempts to purify it. Nearly ten years later in 1937, while investigating microorganisms and the substances they produced, Howard Florey and Ernst Chain uncovered Fleming's research\"\n    },\n    {\n      \"title\": \"Alexander Fleming Discovery and Development of Penicillin\",\n      \"url\": \"https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html\",\n      \"snippet\": \"The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug\"\n    },\n    {\n      \"title\": \"The Discovery of Penicillin\\u2014New Insights After More Than 75 Years\",\n      \"url\": \"https://pmc.ncbi.nlm.nih.gov/articles/PMC5403050/\",\n      \"snippet\": \"In February 1941, the first person to receive penicillin was an Oxford policeman who was exhibiting a serious infection with abscesses throughout his body\"\n    }\n  ]\n}\n\nGrade the following four dimensions, each as \"pass\" or \"fail\":\n\n1. factual_accuracy\n   - The synopsis and every key finding must be supported by, or consistent\n     with, the cited search-result snippets. Inventing facts or contradicting\n     the snippets is a fail.\n\n2. citation_integrity\n   - Every URL listed in the agent's citations must appear in the URL list of\n     the search results provided to it. Any citation URL not present in the\n     search results is a fail.\n\n3. synopsis_quality\n   - The synopsis must be 2-4 sentences, on-topic, and free of opinions or\n     recommendations. Anything outside that band is a fail.\n\n4. findings_count\n   - The agent must list 2-5 substantive findings. Fewer than 2 or more than 5\n     is a fail. Findings that are duplicative or trivially restate the\n     synopsis are also a fail.\n\nReturn your answer as a single JSON object with this exact shape:\n{\n  \"factual_accuracy\": \"pass\" | \"fail\",\n  \"citation_integrity\": \"pass\" | \"fail\",\n  \"synopsis_quality\": \"pass\" | \"fail\",\n  \"findings_count\": \"pass\" | \"fail\",\n  \"comments\": \"<one short sentence per dimension explaining the verdict>\"\n}",
+        "judge_verdicts": {
+          "factual_accuracy": "pass",
+          "citation_integrity": "pass",
+          "synopsis_quality": "pass",
+          "findings_count": "pass"
+        },
+        "raw_judge_response": "{\n  \"factual_accuracy\": \"pass\",\n  \"citation_integrity\": \"pass\",\n  \"synopsis_quality\": \"pass\",\n  \"findings_count\": \"pass\",\n  \"comments\": \"All facts in the synopsis and key findings are directly supported by the provided snippets; all four citation URLs match URLs in the search results; the synopsis is 3 sentences, on-topic, and neutral; there are exactly 4 substantive, non-duplicative findings.\"\n}",
+        "overall_score": "4/4",
+        "run_at": "2026-05-03T20:38:43.499650+00:00"
+      },
+      "search_results": [
+        {
+          "title": "Discovery of penicillin - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Discovery_of_penicillin",
+          "snippet": "Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance, which he named"
+        },
+        {
+          "title": "The real story behind penicillin | PBS News",
+          "url": "https://www.pbs.org/newshour/health/the-real-story-behind-the-worlds-first-antibiotic",
+          "snippet": "A gift today is a direct investment in journalism that belongs to you and keeps everyone informed. The discovery of penicillin, one of the world's first antibiotics, marks a true turning point in human history -- when doctors finally had a tool that could completely cure their patients of deadly infectious diseases. As the story goes, Dr. Alexander Fleming, the bacteriologist on duty at St. Mary's Hospital, returned from a summer vacation in Scotland to find a messy lab bench and a good deal more. It took Fleming a few more weeks to grow enough of the persnickety mold so that he was able to confirm his findings. His conclusions turned out to be phenomenal: there was some factor in the Penicillium mold that not only inhibited the growth of the bacteria but, more important, might be harnessed to combat infectious diseases."
+        },
+        {
+          "title": "The Secret History of Penicillin - Fondation Ipsen",
+          "url": "https://www.fondation-ipsen.org/podcast/the-secret-history-of-penicillin/",
+          "snippet": "Alexander Fleming's name is synonymous with the discovery of penicillin in 1928, but what about the story behind it? We'll then delve into Fleming's groundbreaking discovery and the large-scale development of penicillin during World War II. Finally, we'll examine the impact of penicillin on the public and scientific communities, as well as the unintended consequences of its overuse, which have contributed to the rise of antibiotic-resistant bacteria. It was the first antibiotic to be discovered, and this discovery, you will see, was a turning point in the history of medicine and humanity. In this episode, we will focus on the state of treatments before the discovery of penicillin, before mentioning Alexander Fleming and the large-scale development of this antibiotic during the Second World War. Finally, we will talk about the reception given to it by the public and the scientific world, as well as its misuse that will allow many bacteria to become more resistant.**."
+        },
+        {
+          "title": "Alexander Fleming Discovery and Development of Penicillin - Landmark - American Chemical Society",
+          "url": "https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html",
+          "snippet": "Designated November 19, 1999, at the Alexander Fleming Laboratory Museum in London, U.K. Also recognized at the U.S. Department of Agriculture National Center for Agricultural Utilization Research in Peoria, Ill., and the five American pharmaceutical companies that contributed to penicillin production research during WWII: Abbott Laboratories, Lederle Laboratories (now Pfizer, Inc.), Merck & Co., Inc., Chas. The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug, thus making a life-saving substance in limited supply into a widely available medicine. The WPB investigated more than 175 companies before selecting 21 to participate in a penicillin program under the direction of Albert Elder; in addition to Lederle, Merck, Pfizer and Squibb, Abbott Laboratories (which had also been among the major producers of clinical supplies of penicillin to mid-1943) was one of the first companies to begin large-scale production."
+        },
+        {
+          "title": "The Discovery of Penicillin | PBS LearningMedia",
+          "url": "https://www.pbslearningmedia.org/resource/odys08.sci.life.gen.discovery/the-discovery-of-penicillin/",
+          "snippet": "Discover the story of researcher Sir Alexander Fleming, whose luck and scientific reasoning led to the groundbreaking discovery of penicillin in this video"
+        }
+      ],
+      "agent_output": {
+        "topic": "The Discovery of Penicillin",
+        "synopsis": "Scottish physician Alexander Fleming discovered penicillin in 1928 when he returned from vacation to find a Penicillium mold on his laboratory bench at St. Mary's Hospital that had antibacterial properties. This discovery marked a turning point in human history, as penicillin became the world's first antibiotic capable of curing deadly infectious diseases. While Fleming made the initial discovery in the United Kingdom, the United States played the major role in developing large-scale production during World War II, transforming penicillin from a limited substance into a widely available medicine.",
+        "key_findings": [
+          "Alexander Fleming, a Scottish bacteriologist at St. Mary's Hospital, discovered that Penicillium mold secretes an antibacterial substance in 1928, which he named penicillin after returning from a summer vacation in Scotland to find a contaminated lab bench.",
+          "Fleming's findings revealed that a factor in the Penicillium mold not only inhibited bacterial growth but could potentially be harnessed to combat infectious diseases, representing a phenomenal scientific breakthrough.",
+          "Penicillin was the first antibiotic to be discovered and marked a turning point in the history of medicine, allowing doctors to completely cure patients of deadly infectious diseases for the first time.",
+          "The United States played the major role in developing large-scale production of penicillin during World War II, with the War Production Board selecting 21 companies to participate in the penicillin program, including Abbott Laboratories, Lederle Laboratories, Merck, Pfizer, and Squibb.",
+          "The widespread use and eventual misuse of penicillin contributed to the rise of antibiotic-resistant bacteria, creating unintended consequences that persist in modern medicine."
+        ],
+        "citations": [
+          {
+            "title": "Discovery of penicillin - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Discovery_of_penicillin",
+            "snippet": "Scottish physician Alexander Fleming was the first to experimentally demonstrate that a Penicillium mould secretes an antibacterial substance, which he named"
+          },
+          {
+            "title": "The real story behind penicillin | PBS News",
+            "url": "https://www.pbs.org/newshour/health/the-real-story-behind-the-worlds-first-antibiotic",
+            "snippet": "The discovery of penicillin, one of the world's first antibiotics, marks a true turning point in human history -- when doctors finally had a tool that could completely cure their patients of deadly infectious diseases."
+          },
+          {
+            "title": "Alexander Fleming Discovery and Development of Penicillin - Landmark - American Chemical Society",
+            "url": "https://www.acs.org/education/whatischemistry/landmarks/flemingpenicillin.html",
+            "snippet": "The discovery of penicillin and the initial recognition of its therapeutic potential occurred in the United Kingdom, but, due to World War II, the United States played the major role in developing large-scale production of the drug."
+          },
+          {
+            "title": "The Secret History of Penicillin - Fondation Ipsen",
+            "url": "https://www.fondation-ipsen.org/podcast/the-secret-history-of-penicillin/",
+            "snippet": "It was the first antibiotic to be discovered, and this discovery, you will see, was a turning point in the history of medicine and humanity."
+          }
+        ]
+      },
+      "review": {
+        "reviewer": "",
+        "verdict": "",
+        "rubric": {
+          "factual_accuracy": "",
+          "citation_integrity": "",
+          "synopsis_quality": "",
+          "findings_count": ""
+        },
+        "notes": ""
+      }
+    }
+  ]
+}
