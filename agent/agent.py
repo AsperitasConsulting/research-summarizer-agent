@@ -46,7 +46,8 @@ def summarize(topic: str, search_tool: SearchTool | None = None) -> SummaryResul
         search_tool = _default_search_tool()
 
     results = search_tool.search(topic, max_results=5)
-    # TODO: handle empty results
+    if not results:
+        raise NoResultsError(f"no search results for topic: {topic!r}")
     user_message = build_user_message(topic, results)
 
     model = os.environ.get("SUMMARIZER_MODEL", _DEFAULT_MODEL)
