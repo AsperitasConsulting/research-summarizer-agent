@@ -29,7 +29,6 @@ import os
 import sys
 from pathlib import Path
 
-import anthropic
 from dotenv import load_dotenv
 
 
@@ -38,6 +37,11 @@ sys.path.insert(0, str(_REPO_ROOT))
 
 from agent import StubSearchTool, summarize  # noqa: E402
 from agent.tools import TavilySearchTool  # noqa: E402
+from evals.judge import (  # noqa: E402
+    JUDGE_MODEL,
+    build_judge_prompt,
+    run_judge,
+)
 
 
 load_dotenv()
@@ -45,77 +49,9 @@ load_dotenv()
 
 # Pinned models. Do not swap to aliases — the workshop teaches model pinning.
 AGENT_MODEL = "claude-haiku-4-5-20251001"
-JUDGE_MODEL = "claude-sonnet-4-6"
 TOPIC = "the discovery of penicillin"
 
 OUTPUT_PATH = _REPO_ROOT / "sample_outputs" / "judge_eval_run.json"
-
-
-JUDGE_SYSTEM_PROMPT = """You are an evaluation judge. You will be given:
-- A research topic
-- The exact search results that were provided to a summarizer agent
-- The summarizer agent's structured output (synopsis, key findings, citations)
-
-You must grade the agent's output on four pass/fail dimensions and return
-a single JSON object with the verdicts. Do not include prose outside the JSON."""
-
-
-JUDGE_RUBRIC_INSTRUCTIONS = """Grade the following four dimensions, each as "pass" or "fail":
-
-1. factual_accuracy
-   - The synopsis and every key finding must be supported by, or consistent
-     with, the cited search-result snippets. Inventing facts or contradicting
-     the snippets is a fail.
-
-2. citation_integrity
-   - Every URL listed in the agent's citations must appear in the URL list of
-     the search results provided to it. Any citation URL not present in the
-     search results is a fail.
-
-3. synopsis_quality
-   - The synopsis must be 2-4 sentences, on-topic, and free of opinions or
-     recommendations. Anything outside that band is a fail.
-
-4. findings_count
-   - The agent must list 2-5 substantive findings. Fewer than 2 or more than 5
-     is a fail. Findings that are duplicative or trivially restate the
-     synopsis are also a fail.
-
-Return your answer as a single JSON object with this exact shape:
-{
-  "factual_accuracy": "pass" | "fail",
-  "citation_integrity": "pass" | "fail",
-  "synopsis_quality": "pass" | "fail",
-  "findings_count": "pass" | "fail",
-  "comments": "<one short sentence per dimension explaining the verdict>"
-}"""
-
-
-def _build_judge_prompt(topic: str, search_results: list[dict], agent_result: dict) -> str:
-    return (
-        f"Topic: {topic}\n\n"
-        f"Search results provided to the agent:\n"
-        f"{json.dumps(search_results, indent=2)}\n\n"
-        f"Agent output:\n"
-        f"{json.dumps(agent_result, indent=2)}\n\n"
-        f"{JUDGE_RUBRIC_INSTRUCTIONS}"
-    )
-
-
-def _extract_text(response: anthropic.types.Message) -> str:
-    """Concatenate the text from response.content text-blocks only."""
-    return "".join(b.text for b in response.content if getattr(b, "type", None) == "text")
-
-
-def _parse_judge_verdicts(raw: str) -> tuple[dict, str]:
-    """Pull the JSON object out of the judge's text and return (verdicts, comments)."""
-    start = raw.find("{")
-    end = raw.rfind("}")
-    if start == -1 or end == -1 or end <= start:
-        raise ValueError(f"Judge response did not contain a JSON object:\n{raw}")
-    parsed = json.loads(raw[start : end + 1])
-    comments = parsed.pop("comments", "")
-    return parsed, comments
 
 
 def main() -> None:
@@ -138,18 +74,10 @@ def main() -> None:
     agent_result = summarize(TOPIC, search_tool=agent_input_tool)
     agent_result_payload = agent_result.model_dump()
 
-    judge_prompt = _build_judge_prompt(TOPIC, search_results_payload, agent_result_payload)
-
-    client = anthropic.Anthropic()
-    judge_response = client.messages.create(
-        model=JUDGE_MODEL,
-        max_tokens=1024,
-        system=JUDGE_SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": judge_prompt}],
+    judge_prompt = build_judge_prompt(TOPIC, search_results_payload, agent_result_payload)
+    verdicts, comments, raw_judge_response = run_judge(
+        TOPIC, search_results_payload, agent_result_payload
     )
-
-    raw_judge_response = _extract_text(judge_response)
-    verdicts, comments = _parse_judge_verdicts(raw_judge_response)
     pass_count = sum(1 for v in verdicts.values() if v == "pass")
     overall_score = f"{pass_count}/{len(verdicts)}"
 
