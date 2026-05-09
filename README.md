@@ -10,8 +10,6 @@ The agent takes a topic string, runs a web search via Tavily, asks Claude to wri
 - Anthropic API key with access to `claude-haiku-4-5-20251001` and `claude-sonnet-4-6` (the eval judge).
 - Tavily API key (free tier is enough for the workshop).
 
-Workshop organizers will supply both keys. You only need to bring a working Python environment.
-
 ## Setup
 
 ```bash
