@@ -29,15 +29,38 @@ This isn't strictly needed, but it allows you to keep your work.
 - Execute the bash commands below. A slight adjustment if you're using Windows.
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate          # (Windows: .venv\Scripts\activate)
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and paste in your two API keys.
-python verify_setup.py
+python3 verify_setup.py
 ```
 
 `verify_setup.py` exits 0 when everything is wired up; exits 1 otherwise.
+
+# Workshop Exercises
+
+This workshop teaches how to test a non-deterministic AI agent by climbing the **AI Agent Testing Pyramid** — from fast, mocked unit tests at the base to human review at the top. You will implement each tier against the same small research-summarizer agent, using Claude Code as your pair programmer.
+
+The pyramid model is defined in [requirements/Testing-Pyramid.md](requirements/Testing-Pyramid.md). For the full motivation, trade-offs, and how the tiers fit together, see [The AI Agent Testing Pyramid: A Practical Framework for Non-Deterministic Systems](https://medium.com/@derekcashmore/the-ai-agent-testing-pyramid-a-practical-framework-for-non-deterministic-systems-276c22feaec8) on Medium.
+
+Work through the four exercises **in order**. Each file contains suggested Claude Code prompts; earlier levels should stay green before you move on.
+
+| Level | Tier | Exercise |
+|-------|------|----------|
+| 1 | Base — deterministic unit tests | [exercises/level1_prompts.md](exercises/level1_prompts.md) |
+| 2 | Lower-middle — constrained model tests | [exercises/level2_prompts.md](exercises/level2_prompts.md) |
+| 3 | Upper-middle — LLM-as-judge evals | [exercises/level3_prompts.md](exercises/level3_prompts.md) |
+| 4 | Top — human evaluation | [exercises/level4_prompts.md](exercises/level4_prompts.md) |
+
+**Level 1** stubs the search tool and tests orchestration (validation, empty results, happy path) without API calls. 
+
+**Level 2** calls the real model with controlled settings to check structured output and prompt behavior. 
+
+**Level 3** adds an automated judge to grade semantic quality. 
+
+**Level 4** covers preference testing, expert review, and red-teaming — the expensive signal you use sparingly in production.
 
 # How the agent works
 
@@ -50,21 +73,21 @@ For the full design rationale and field semantics, see `requirements/Research_Su
 A small CLI ships with the agent so attendees can drive it without writing Python. It takes a single positional `topic` argument:
 
 ```bash
-python -m agent "photosynthesis"            # plain-text output to stdout
-python -m agent --json "quantum computing"  # SummaryResult as indented JSON
+python3 -m agent "photosynthesis"            # plain-text output to stdout
+python3 -m agent --json "quantum computing"  # SummaryResult as indented JSON
 ```
 
 The CLI reads `ANTHROPIC_API_KEY` and (optionally) `TAVILY_API_KEY` from the environment, the same as the library. Without `TAVILY_API_KEY` the agent raises `NoResultsError`, which the CLI prints to stderr and exits with code 1. Errors are written to stderr in the form `error: <ExceptionClass>: <message>`; on success the exit code is 0.
 
 ```bash
-python -m agent --help
+python3 -m agent --help
 ```
 
 ## Running tests
 
 ```bash
-pytest tests/test_level1.py     # fast, no API calls
-pytest tests/test_level2.py     # uses real Anthropic + Tavily; skips if keys missing
+pytest3 tests/test_level1.py     # fast, no API calls
+pytest3 tests/test_level2.py     # uses real Anthropic + Tavily; skips if keys missing
 ```
 
 The starter files in `tests/` are commented stubs — fill them in during the workshop. Reference solutions live in `solution/tests/`.
@@ -72,7 +95,7 @@ The starter files in `tests/` are commented stubs — fill them in during the wo
 ## Running the eval
 
 ```bash
-python evals/judge_eval.py
+python3 evals/judge_eval.py
 ```
 
 The script calls the agent, then asks `claude-sonnet-4-6` to grade the output on four pass/fail dimensions. Stdout shows a labelled report; the structured trace is written to `sample_outputs/judge_eval_run.json` (committed in the repo as a known-good example run).
@@ -92,7 +115,7 @@ pip install -U anthropic pydantic tavily-python pytest python-dotenv
 pip freeze > requirements-lock.txt
 # Manually update top-level pins in requirements.txt to the new versions.
 # If prompts or models changed, also re-run the eval and commit the new trace:
-python evals/judge_eval.py
+python3 evals/judge_eval.py
 ```
 
 ## Sample outputs
@@ -100,7 +123,7 @@ python evals/judge_eval.py
 `sample_outputs/photosynthesis.json` and `sample_outputs/quantum_computing.json` are hand-curated examples of the `SummaryResult` shape with real, stable URLs (Wikipedia, NIH, quantum.gov). Verify the URLs are still live before each session:
 
 ```bash
-python scripts/check_sample_urls.py
+python3 scripts/check_sample_urls.py
 ```
 
 Exit code 0 means every citation URL returned HTTP 200.
