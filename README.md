@@ -2,6 +2,8 @@
 
 Attendees for this workshop should complete the prerequisites and the setup sections before the workshop. Please raise an issue on the repository if you have trouble.
 
+[Workshop presentation deck](docs/The-AI-Agent-Testing-Pyramid-Workshop-London-2026.pdf)
+
 ## Prerequisites
 
 > Attendees need the fllowing software installed.
